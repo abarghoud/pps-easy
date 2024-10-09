@@ -1,0 +1,156 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`The PPSApiFormDataGenerator class The generateCardiovascularRisksFormData method should return a formData containing the default values with provided authenticity_token and personal info 1`] = `
+FormData {
+  Symbol(state): [
+    {
+      "name": "authenticity_token",
+      "value": "the_token",
+    },
+    {
+      "name": "button",
+      "value": "",
+    },
+    {
+      "name": "_method",
+      "value": "patch",
+    },
+    {
+      "name": "course[cardiovascular_risks_video]",
+      "value": "1",
+    },
+    {
+      "name": "course[cardiovascular_risks_checkbox]",
+      "value": "1",
+    },
+  ],
+}
+`;
+
+exports[`The PPSApiFormDataGenerator class The generateFinalizationFormData method should return a formData containing the default values with provided authenticity_token and personal info 1`] = `
+FormData {
+  Symbol(state): [
+    {
+      "name": "authenticity_token",
+      "value": "the_token",
+    },
+    {
+      "name": "button",
+      "value": "",
+    },
+    {
+      "name": "_method",
+      "value": "patch",
+    },
+    {
+      "name": "course[finalization_checkbox]",
+      "value": "1",
+    },
+    {
+      "name": "course[ffa_newsletter]",
+      "value": "0",
+    },
+  ],
+}
+`;
+
+exports[`The PPSApiFormDataGenerator class The generatePersonalInfoFormData method should return a formData containing the default values with provided authenticity_token and personal info 1`] = `
+FormData {
+  Symbol(state): [
+    {
+      "name": "authenticity_token",
+      "value": "the_token",
+    },
+    {
+      "name": "button",
+      "value": "",
+    },
+    {
+      "name": "_method",
+      "value": "patch",
+    },
+    {
+      "name": "course[gender]",
+      "value": "male",
+    },
+    {
+      "name": "course[last_name]",
+      "value": "DUPONT",
+    },
+    {
+      "name": "course[first_name]",
+      "value": "Marc",
+    },
+    {
+      "name": "course[birthdate(3i)]",
+      "value": "1",
+    },
+    {
+      "name": "course[birthdate(2i)]",
+      "value": "1",
+    },
+    {
+      "name": "course[birthdate(1i)]",
+      "value": "1990",
+    },
+    {
+      "name": "course[email]",
+      "value": "test@test.com",
+    },
+  ],
+}
+`;
+
+exports[`The PPSApiFormDataGenerator class The generatePrecautionsFormData method should return a formData containing the default values with provided authenticity_token and personal info 1`] = `
+FormData {
+  Symbol(state): [
+    {
+      "name": "authenticity_token",
+      "value": "the_token",
+    },
+    {
+      "name": "button",
+      "value": "",
+    },
+    {
+      "name": "_method",
+      "value": "patch",
+    },
+    {
+      "name": "course[precautions_video]",
+      "value": "1",
+    },
+    {
+      "name": "course[precautions_checkbox]",
+      "value": "1",
+    },
+  ],
+}
+`;
+
+exports[`The PPSApiFormDataGenerator class The generateRiskFactorsFormData method should return a formData containing the default values with provided authenticity_token and personal info 1`] = `
+FormData {
+  Symbol(state): [
+    {
+      "name": "authenticity_token",
+      "value": "the_token",
+    },
+    {
+      "name": "button",
+      "value": "",
+    },
+    {
+      "name": "_method",
+      "value": "patch",
+    },
+    {
+      "name": "course[risk_factors_video]",
+      "value": "1",
+    },
+    {
+      "name": "course[risk_factors_checkbox]",
+      "value": "1",
+    },
+  ],
+}
+`;
