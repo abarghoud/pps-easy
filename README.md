@@ -24,13 +24,14 @@ Currently, the API exposes a single endpoint to simulate the completion of the P
 2. Install dependencies:
 
    ```bash
-   npm install
+   yarn install
    ```
 
 3. Run the application:
 
    ```bash
-   npm start
+   yarn global add nx@latest
+   nx serve api
    ```
 
 ## Usage
