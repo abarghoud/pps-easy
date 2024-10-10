@@ -1,6 +1,8 @@
 
 # PPS Easy
 
+[![CI](https://github.com/abarghoud/pps-easy/actions/workflows/ci.yml/badge.svg)](https://github.com/abarghoud/pps-easy/actions/workflows/ci.yml)
+
 ## Overview
 
 This is an open-source project that allows users to quickly complete the PPS (Parcours de Prévention Santé) journey in France by simulating the required steps. It interacts with PPS APIs to optimize the process, enabling faster access to the PPS certification.
