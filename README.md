@@ -19,20 +19,20 @@ Currently, the API exposes a single endpoint to simulate the completion of the P
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/pps-bypass-api.git
-   cd pps-bypass-api
+   git clone https://github.com/abarghoud/pps-easy.git
+   cd pps-easy
    ```
 
 2. Install dependencies:
 
    ```bash
    yarn install
+   yarn global add nx@latest
    ```
 
 3. Run the application:
 
    ```bash
-   yarn global add nx@latest
    nx serve api
    ```
 
