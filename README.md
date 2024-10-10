@@ -51,7 +51,8 @@ curl --location 'http://localhost:3000/api/pps/generate' \
 ```
 
 Replace the placeholder data with your personal information to simulate your PPS journey.
-Please note the race date should be within 3 months
+
+**_Please note the race date should be within 3 months_**
 
 ## Contribution
 

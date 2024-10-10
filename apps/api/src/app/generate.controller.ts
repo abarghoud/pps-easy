@@ -18,9 +18,4 @@ export class GenerateController {
     }
 
   }
-
-  @Get()
-  public async test(): Promise<PPSId> {
-    return 'hello world';
-  }
 }
