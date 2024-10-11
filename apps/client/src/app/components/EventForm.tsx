@@ -32,12 +32,12 @@ import {
 } from '@/components/ui/select'
 
 const formSchema = z.object({
-  dateNaissance: z
+  birthday: z
     .date({
       required_error: "Veuillez sélectionner une date de naissance.",
     })
     .nullable(),
-  dateEvenement: z
+  eventDate: z
     .date({
       required_error: "Veuillez sélectionner une date d'événement.",
     })
@@ -45,14 +45,14 @@ const formSchema = z.object({
   email: z.string().email({
     message: "Veuillez entrer une adresse email valide.",
   }),
-  prenom: z.string().min(2, {
-    message: "Le prénom doit contenir au moins 2 caractères.",
+  firstname: z.string().min(2, {
+    message: "Le prélastname doit contenir au moins 2 caractères.",
   }),
-  nom: z.string().min(2, {
-    message: "Le nom doit contenir au moins 2 caractères.",
+  lastname: z.string().min(2, {
+    message: "Le lastname doit contenir au moins 2 caractères.",
   }),
-  genre: z.enum(["homme", "femme", "autre"], {
-    required_error: "Veuillez sélectionner un genre.",
+  gender: z.enum(["homme", "femme", "autre"], {
+    required_error: "Veuillez sélectionner un gender.",
   }),
 })
 
@@ -62,12 +62,12 @@ export const EventForm = () => {
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      dateNaissance: null,
-      dateEvenement: null,
+      birthday: null,
+      eventDate: null,
       email: "",
-      prenom: "",
-      nom: "",
-      genre: undefined,
+      firstname: "",
+      lastname: "",
+      gender: undefined,
     },
   })
 
@@ -80,7 +80,7 @@ export const EventForm = () => {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <Controller
           control={form.control}
-          name="dateNaissance"
+          name="birthday"
           render={({ field }) => (
             <FormItem className="flex flex-col">
               <FormLabel>Date de naissance</FormLabel>
@@ -122,7 +122,7 @@ export const EventForm = () => {
 
         <Controller
           control={form.control}
-          name="dateEvenement"
+          name="eventDate"
           render={({ field }) => (
             <FormItem className="flex flex-col">
               <FormLabel>Date de l'événement</FormLabel>
@@ -176,12 +176,12 @@ export const EventForm = () => {
 
         <FormField
           control={form.control}
-          name="prenom"
+          name="firstname"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Prénom</FormLabel>
+              <FormLabel>Prélastname</FormLabel>
               <FormControl>
-                <Input placeholder="Prénom" {...field} />
+                <Input placeholder="Prélastname" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -190,12 +190,12 @@ export const EventForm = () => {
 
         <FormField
           control={form.control}
-          name="nom"
+          name="lastname"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Nom</FormLabel>
+              <FormLabel>lastname</FormLabel>
               <FormControl>
-                <Input placeholder="Nom" {...field} />
+                <Input placeholder="lastname" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -204,14 +204,14 @@ export const EventForm = () => {
 
         <FormField
           control={form.control}
-          name="genre"
+          name="gender"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Genre</FormLabel>
+              <FormLabel>gender</FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
-                    <SelectValue placeholder="Sélectionnez votre genre" />
+                    <SelectValue placeholder="Sélectionnez votre gender" />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
