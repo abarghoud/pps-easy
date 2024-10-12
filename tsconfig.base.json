@@ -18,7 +18,9 @@
       "@easy-pps": ["libs/html-parser/cheerio/src/index.ts"],
       "@easy-pps/html-parser/contracts": [
         "libs/html-parser/contracts/src/index.ts"
-      ]
+      ],
+      "@pps-easy/ui": ["libs/ui/src/components"],
+      "@pps-easy/ui/styles/*": ["libs/ui/src/styles/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]

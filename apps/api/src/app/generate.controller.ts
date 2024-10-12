@@ -15,6 +15,5 @@ export class GenerateController {
     } catch (error) {
       console.log(error);
     }
-
   }
 }
