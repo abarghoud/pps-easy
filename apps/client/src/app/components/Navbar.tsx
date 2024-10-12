@@ -1,8 +1,8 @@
-import React, { useCallback, useState } from "react"
-import { BrowserRouter as Router, Link } from "react-router-dom"
-import { Award, Home, Menu, User } from "lucide-react"
+import React, { useCallback, useState } from "react";
+import { Link } from "react-router-dom";
+import { Award, Home, Menu, User } from "lucide-react";
 
-import { Button } from "@pps-easy/ui/button"
+import { Button } from "@pps-easy/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@pps-easy/ui/sheet";
 
 interface NavItems {
@@ -43,8 +43,8 @@ export const Navbar = () => {
                   key={item.name}
                   to={item.href}
                   className={`flex items-center px-3 py-2 rounded-md text-sm font-medium ${activeTab === item.href
-                      ? "bg-primary text-primary-foreground"
-                      : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                    ? "bg-primary text-primary-foreground"
+                    : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
                     }`}
                   onClick={() => handleNavClick(item.href)}
                 >
@@ -69,8 +69,8 @@ export const Navbar = () => {
                       key={item.name}
                       to={item.href}
                       className={`flex items-center px-3 py-2 rounded-md text-sm font-medium ${activeTab === item.href
-                          ? "bg-primary text-primary-foreground"
-                          : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                        ? "bg-primary text-primary-foreground"
+                        : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
                         }`}
                       onClick={() => handleNavClick(item.href)}
                     >
