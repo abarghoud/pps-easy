@@ -12,6 +12,6 @@
   "aliases": {
     "components": "@pps-easy/ui",
     "ui": "@pps-easy/ui",
-    "utils": "@pps-easy/ui"
+    "utils": "@pps-easy/shadcn/utils"
   }
 }
