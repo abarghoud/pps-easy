@@ -10,10 +10,12 @@
   "include": [],
   "references": [
     {
-      "path": "./tsconfig.lib.json"
+      "path": "./tsconfig.lib.json",
+      "composite": true
     },
     {
-      "path": "./tsconfig.spec.json"
+      "path": "./tsconfig.spec.json",
+      "composite": true
     }
   ],
   "extends": "../../tsconfig.base.json"
