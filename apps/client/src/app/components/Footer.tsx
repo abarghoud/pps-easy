@@ -5,14 +5,14 @@ import { Twitter, Mail } from "lucide-react";
 import { Button } from "@pps-easy/ui/button";
 
 interface FooterLink {
-  name: string
-  href: string
+  href: string;
+  name: string;
 }
 
 interface SocialLink {
-  name: string
-  href: string
-  icon: React.ElementType
+  href: string;
+  icon: React.ElementType;
+  name: string;
 }
 
 export const Footer = () => {
@@ -21,17 +21,17 @@ export const Footer = () => {
     { name: "Conditions d'utilisation", href: "/terms" },
     { name: "Politique de confidentialité", href: "/privacy" },
     { name: "Contact", href: "/contact" },
-  ]
+  ];
 
   const socialLinks: SocialLink[] = [
     { name: "Twitter", href: "https://twitter.com", icon: Twitter },
     { name: "Email", href: "mailto:contact@example.com", icon: Mail },
-  ]
+  ];
 
   return (
     <footer className="bg-background border-t">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="max-w-7xl mx-auto px-6 py-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           <div className="space-y-4">
             <h3 className="text-lg font-semibold text-primary">PPS Easy</h3>
             <p className="text-sm text-muted-foreground">
@@ -63,20 +63,26 @@ export const Footer = () => {
                   size="icon"
                   asChild
                 >
-                  <a href={link.href} target="_blank" rel="noopener noreferrer" aria-label={link.name}>
-                    <link.icon className="h-5 w-5" />
+                  <a
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={link.name}
+                    className="flex items-center justify-center"
+                  >
+                    <link.icon className="h-6 w-6 text-muted-foreground hover:text-primary transition-colors" />
                   </a>
                 </Button>
               ))}
             </div>
           </div>
         </div>
-        <div className="mt-8 pt-8 border-t border-muted text-center">
+        <div className="mt-10 pt-6 border-t border-muted text-center">
           <p className="text-sm text-muted-foreground">
             © {new Date().getFullYear()} PPS Easy. Tous droits réservés.
           </p>
         </div>
       </div>
     </footer>
-  )
-}
+  );
+};

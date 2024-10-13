@@ -1,12 +1,12 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { eventFormSchema, FormValues } from '../schema/event-form-schema';
-import { formatToISODate } from '../utils/validators';
+import { eventFormSchema, FormValues } from '../../schema/event-form-schema';
+import { formatToISODate } from '../../utils/validators';
 import { Card, CardContent, CardHeader, CardTitle } from '@pps-easy/ui/card';
 import { Button } from '@pps-easy/ui/button';
 import { Form } from '@pps-easy/ui/form';
-import { InputField, SelectField } from './form/Fields';
+import { InputField, SelectField } from './Fields';
 
 export const EventForm: React.FC = () => {
   const form = useForm<FormValues>({
