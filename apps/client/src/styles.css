@@ -1,4 +1,4 @@
-@import "../../libs/ui/src/styles/global.css";
+@import "../../../libs/ui/src/styles/global.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
