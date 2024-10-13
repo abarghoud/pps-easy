@@ -36,7 +36,7 @@ export const InputField: React.FC<InputFieldProps> = ({
     name={name}
     render={({ field }: { field: ControllerRenderProps<FormValues, keyof FormValues> }) => (
       <FormItem>
-        <FormLabel>{label}</FormLabel>
+        <FormLabel className="text-sm font-medium text-primary">{label}</FormLabel>
         <FormControl>
           <Input
             placeholder={placeholder}
@@ -47,9 +47,10 @@ export const InputField: React.FC<InputFieldProps> = ({
               field.onChange(isDateField ? formatDate(newValue) : newValue);
             }}
             maxLength={isDateField ? DATE_FIELD_MAX_LENGTH : undefined}
+            className="py-2 px-3 border border-muted-foreground rounded-md focus:outline-none focus:ring focus:ring-primary transition duration-150 ease-in-out"
           />
         </FormControl>
-        <FormMessage />
+        <FormMessage className="text-red-500 text-xs mt-1" />
       </FormItem>
     )}
   />
@@ -67,10 +68,10 @@ export const SelectField: React.FC<SelectFieldProps> = ({
     name={name}
     render={({ field }: { field: ControllerRenderProps<FormValues, keyof FormValues> }) => (
       <FormItem>
-        <FormLabel>{label}</FormLabel>
+        <FormLabel className="text-sm font-medium text-primary">{label}</FormLabel>
         <Select onValueChange={field.onChange} defaultValue={field.value?.toString()}>
           <FormControl>
-            <SelectTrigger>
+            <SelectTrigger className="py-2 px-3 border border-muted-foreground rounded-md focus:outline-none focus:ring focus:ring-primary transition duration-150 ease-in-out">
               <SelectValue placeholder={placeholder} />
             </SelectTrigger>
           </FormControl>
@@ -82,7 +83,7 @@ export const SelectField: React.FC<SelectFieldProps> = ({
             ))}
           </SelectContent>
         </Select>
-        <FormMessage />
+        <FormMessage className="text-red-500 text-xs mt-1" />
       </FormItem>
     )}
   />

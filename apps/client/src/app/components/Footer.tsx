@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Twitter, Mail } from "lucide-react";
-
 import { Button } from "@pps-easy/ui/button";
 
 interface FooterLink {
