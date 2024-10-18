@@ -117,8 +117,7 @@ export const EventForm: React.FC = () => {
               />
             </div>
 
-            <Button className="w-full" type="submit" disabled={isSubmitting}>
-              {isSubmitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
+            <Button className="w-full" type="submit" isLoading={isSubmitting}>
               Générer votre certificat
             </Button>
           </form>
