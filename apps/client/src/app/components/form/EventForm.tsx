@@ -59,12 +59,9 @@ export const EventForm: React.FC = () => {
     }
   };
 
-  const handleSuccess = (response: { status: number; }) => {
-    if (response.status === 201) {
-      form.reset();
-    } else {
-      handleError(new Error('Une erreur est survenue lors de la génération du certificat.'));
-    }
+  const handleSuccess = (response: string) => {
+    const resultWindow = window.open('');
+    resultWindow?.document.write(response);
   };
 
   return (
