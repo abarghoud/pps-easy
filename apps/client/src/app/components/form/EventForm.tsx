@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { eventFormSchema, FormValues } from '../../schema/event-form-schema';
@@ -6,10 +6,12 @@ import { formatToISODate } from '../../utils/validators';
 import { Card, CardContent, CardHeader, CardTitle } from '@pps-easy/ui/card';
 import { Button } from '@pps-easy/ui/button';
 import { Form } from '@pps-easy/ui/form';
+import { Loader2 } from "lucide-react"
 import { InputField, SelectField } from './Fields';
 import { PPSGenerateAPI } from '../../api/pps-generate-api';
 
 export const EventForm: React.FC = () => {
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const form = useForm<FormValues>({
     resolver: zodResolver(eventFormSchema),
     defaultValues: {
@@ -42,6 +44,7 @@ export const EventForm: React.FC = () => {
   };
 
   const onSubmit = async (values: FormValues) => {
+    setIsSubmitting(true);
     const payload = transformFormValuesToAPIPayload(values);
     try {
       const response = await PPSGenerateAPI.generate({
@@ -51,6 +54,8 @@ export const EventForm: React.FC = () => {
       handleSuccess(response);
     } catch (error) {
       handleError(error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -115,7 +120,8 @@ export const EventForm: React.FC = () => {
               />
             </div>
 
-            <Button className="w-full" type="submit">
+            <Button className="w-full" type="submit" disabled={isSubmitting}>
+              {isSubmitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
               Générer votre certificat
             </Button>
           </form>
