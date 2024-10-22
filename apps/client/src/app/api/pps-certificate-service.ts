@@ -2,7 +2,7 @@ import axios from 'axios';
 import { GeneratePPSPayload, IPPSCertificateService } from './pps-certificate-service.requirements';
 
 export const api = axios.create({
-  baseURL: 'http://localhost:3000',
+  baseURL: process.env.API_URL || 'http://localhost:3000',
 });
 
 export class PPSCertificateService implements IPPSCertificateService {
