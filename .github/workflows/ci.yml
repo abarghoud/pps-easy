@@ -28,3 +28,13 @@ jobs:
       - run: yarn install --frozen-lockfile
 
       - run: npx nx run-many --all -t lint test build
+
+      - name: Trigger API Deployment
+        if: github.ref == 'refs/heads/main'
+        run: |
+          curl ${{ secrets.RENDER_API_DEPLOYMENT_URL }}
+
+      - name: Trigger Client Deployment
+        if: github.ref == 'refs/heads/main'
+        run: |
+          curl ${{ secrets.RENDER_CLIENT_DEPLOYMENT_URL }}
