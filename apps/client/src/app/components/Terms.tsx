@@ -27,6 +27,8 @@ export const Terms = () => {
       <p>
         Nous déclinons toute responsabilité pour les dommages résultant de l'utilisation ou de l'incapacité à utiliser nos services,
         y compris mais sans s'y limiter, les pertes de données ou les dommages directs, indirects, accessoires, consécutifs ou punitifs.
+        De plus, nous recommandons fortement aux utilisateurs de suivre un parcours intégral avant d'utiliser nos services et ce afin d'éviter tout
+        risque potentiel de blessure ou d'accident. L'utilisation de nos services est à vos propres risques et résulte de votre entière responsabilité.
       </p>
       <h3 className="text-lg font-semibold mt-6 mb-2 text-primary">5. Droit applicable</h3>
       <p>

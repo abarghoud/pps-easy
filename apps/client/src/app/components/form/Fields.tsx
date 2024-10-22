@@ -68,7 +68,7 @@ export const SelectField: React.FC<SelectFieldProps> = ({
     name={name}
     render={({ field }: { field: ControllerRenderProps<FormValues, keyof FormValues> }) => (
       <FormItem>
-        <FormLabel className="text-sm font-medium text-primary">{label}</FormLabel>
+        <FormLabel className="text-sm font-medium text-white">{label}</FormLabel>
         <Select onValueChange={field.onChange} defaultValue={field.value?.toString()}>
           <FormControl>
             <SelectTrigger className="py-2 px-3 border border-muted-foreground rounded-md focus:outline-none focus:ring focus:ring-primary transition duration-150 ease-in-out">
