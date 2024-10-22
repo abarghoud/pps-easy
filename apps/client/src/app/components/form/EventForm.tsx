@@ -18,7 +18,7 @@ export const EventForm: React.FC<EventFormProps> = ({
 }) => {
   return (
     <FormProvider {...formMethods}>
-      <Card className="w-full max-w-2xl mx-auto min-h-[595px] flex flex-col justify-center p-6 bg-card rounded-lg shadow-md border border-border overflow-auto">
+      <Card className="w-full max-w-2xl mx-auto min-h-[595px] flex flex-col justify-center p-6 bg-card rounded-lg shadow-2xl border-2 border-primary overflow-auto">
         <CardHeader>
           <CardTitle className="text-3xl font-bold text-center text-primary">PPS Easy</CardTitle>
         </CardHeader>
