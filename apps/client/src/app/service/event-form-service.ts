@@ -1,12 +1,12 @@
 import { IEventFormService } from './event-form-service.requirements';
-import { IPPSGenerateAPI } from '../api/pps-generate-api.requirements';
+import { IPPSCertificateService } from '../api/pps-certificate-service.requirements';
 import { FormValues } from '../schema/event-form-schema';
 import { formatToISODate } from '../utils/validators';
 
 export class EventFormService implements IEventFormService {
-  private api: IPPSGenerateAPI;
+  private api: IPPSCertificateService;
 
-  constructor(api: IPPSGenerateAPI) {
+  constructor(api: IPPSCertificateService) {
     this.api = api;
   }
 

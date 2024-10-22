@@ -7,6 +7,6 @@ export interface GeneratePPSPayload {
   lastname: string;
 }
 
-export interface IPPSGenerateAPI {
+export interface IPPSCertificateService {
   generate: (payload: GeneratePPSPayload) => Promise<string>;
 }

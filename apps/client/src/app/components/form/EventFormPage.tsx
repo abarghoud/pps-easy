@@ -4,12 +4,12 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { eventFormSchema, FormValues } from '../../schema/event-form-schema';
 import { EventForm } from './EventForm';
 import { EventFormService } from '../../service/event-form-service';
-import { PPSGenerateAPI } from '../../api/pps-generate-api';
+import { PPSCertificateService } from '../../api/pps-certificate-service';
 
 export const EventFormPage: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const ppsGenerateAPI = new PPSGenerateAPI();
+  const ppsGenerateAPI = new PPSCertificateService();
   const eventFormService = new EventFormService(ppsGenerateAPI);
 
   const formValues = useForm<FormValues>({
