@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { Link } from "react-router-dom";
-import { Award, Home, Menu, User } from "lucide-react";
+import { Medal, Menu } from "lucide-react";
 
 import { Button } from "@pps-easy/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@pps-easy/ui/sheet";
@@ -16,9 +16,8 @@ export const Navbar = () => {
   const [activeTab, setActiveTab] = useState("/");
 
   const navItems: NavItems[] = [
-    { name: "Accueil", href: "/", icon: Home },
-    { name: "Mes certificats", href: "/certificates", icon: Award },
-    { name: "Mon compte", href: "/account", icon: User },
+    { name: "Générer un certificat", href: "/", icon: Medal },
+    // ROP: Add a new items to the navbar here
   ];
 
   const handleNavClick = useCallback((href: string) => {

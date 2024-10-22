@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Twitter, Mail } from "lucide-react";
 import { Button } from "@pps-easy/ui/button";
+import { GitHubLogoIcon } from "@radix-ui/react-icons";
 
 interface FooterLink {
   href: string;
@@ -23,8 +24,8 @@ export const Footer = () => {
   ];
 
   const socialLinks: SocialLink[] = [
-    { name: "Twitter", href: "https://twitter.com", icon: Twitter },
-    { name: "Email", href: "mailto:contact@example.com", icon: Mail },
+    { name: "Twitter", href: "https://github.com/abarghoud/pps-easy", icon: GitHubLogoIcon },
+    { name: "Email", href: "/contact-form", icon: Mail },
   ];
 
   return (

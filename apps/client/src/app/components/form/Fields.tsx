@@ -36,7 +36,7 @@ export const InputField: React.FC<InputFieldProps> = ({
     name={name}
     render={({ field }: { field: ControllerRenderProps<FormValues, keyof FormValues> }) => (
       <FormItem>
-        <FormLabel className="text-sm font-medium text-primary">{label}</FormLabel>
+        <FormLabel className="text-sm font-medium text-white">{label}</FormLabel>
         <FormControl>
           <Input
             placeholder={placeholder}

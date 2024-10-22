@@ -18,11 +18,11 @@ export const EventForm: React.FC<EventFormProps> = ({
 }) => {
   return (
     <FormProvider {...formMethods}>
-      <Card className="w-full max-w-2xl mx-auto min-h-[595px] flex flex-col justify-center">
+      <Card className="w-full max-w-2xl mx-auto min-h-[595px] flex flex-col justify-center p-6 bg-card rounded-lg shadow-md border border-border overflow-auto">
         <CardHeader>
-          <CardTitle className="text-2xl font-bold text-center">PPS Easy</CardTitle>
+          <CardTitle className="text-3xl font-bold text-center text-primary">PPS Easy</CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="text-white">
           <form onSubmit={formMethods.handleSubmit(onSubmit)} className="space-y-6 flex-grow">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <InputField
@@ -68,7 +68,7 @@ export const EventForm: React.FC<EventFormProps> = ({
                 placeholder="Sélectionnez votre genre"
               />
             </div>
-            <Button className="w-full" type="submit" isLoading={isSubmitting}>
+            <Button className="w-full bg-primary text-white" type="submit" isLoading={isSubmitting}>
               Générer votre certificat
             </Button>
           </form>
