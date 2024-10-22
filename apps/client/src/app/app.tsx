@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import { Navbar } from "./components/Navbar";
-import { EventForm } from "./components/form/EventForm";
+import { EventFormPage } from "./components/form/EventFormPage";
 import { Footer } from "./components/Footer";
 import { Certificates } from "./components/Certificates";
 import { Account } from "./components/Account";
@@ -15,7 +15,7 @@ export function App() {
       <Navbar />
       <main className="flex-grow container mx-auto px-4 py-8 max-w-2xl">
         <Routes>
-          <Route path="/" element={<EventForm />} />
+          <Route path="/" element={<EventFormPage />} />
           <Route path="/certificates" element={<Certificates />} />
           <Route path="/account" element={<Account />} />
           <Route path="/about" element={<About />} />
