@@ -13,6 +13,7 @@ import { IPPSApiSymbol } from './pps/third-party/pps-api.interface';
 import { PPSApi } from './pps/third-party/pps-api';
 import { IPPSApiResponseAuthenticationMetaDataExtractorSymbol } from './pps/domain/authentication-metadata-extractor/pps-api-response-authentication-metadata-extractor.interface';
 import { PPSApiResponseAuthenticationMetaDataExtractor } from './pps/domain/authentication-metadata-extractor/pps-api-response-authentication-metadata-extractor';
+import { KeepAliveController } from './keep-alive/keep-alive.controller';
 
 
 @Module({
@@ -21,7 +22,7 @@ import { PPSApiResponseAuthenticationMetaDataExtractor } from './pps/domain/auth
       rejectUnauthorized: false
     }),
   }),],
-  controllers: [GenerateController],
+  controllers: [GenerateController, KeepAliveController],
   providers: [
     { provide: IPPSGenerateUseCaseSymbol, useClass: PPSGeneratorUseCase },
     { provide: IPPSApiSymbol, useClass: PPSApi, scope: Scope.REQUEST },
