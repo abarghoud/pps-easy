@@ -1,8 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Twitter, Mail } from "lucide-react";
+import { Mail } from "lucide-react";
 import { Button } from "@pps-easy/ui/button";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
+import { ModeToggle } from "@pps-easy/ui/mode-toggle";
 
 interface FooterLink {
   href: string;
@@ -29,7 +30,7 @@ export const Footer = () => {
   ];
 
   return (
-    <footer className="bg-background border-t">
+    <footer className="bg-background border-t border-border shadow-md">
       <div className="max-w-7xl mx-auto px-6 py-10">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           <div className="space-y-4">
@@ -74,6 +75,7 @@ export const Footer = () => {
                   </a>
                 </Button>
               ))}
+              <ModeToggle />
             </div>
           </div>
         </div>
