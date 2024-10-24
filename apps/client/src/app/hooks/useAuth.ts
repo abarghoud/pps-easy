@@ -7,7 +7,9 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
-  User
+  sendEmailVerification,
+  sendPasswordResetEmail,
+  User,
 } from 'firebase/auth';
 
 export const useAuth = () => {
@@ -38,6 +40,7 @@ export const useAuth = () => {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       setUser(userCredential.user);
+      await sendEmailVerification(userCredential.user);
     } catch (error) {
       console.error("Registration error:", error);
       throw error;
@@ -66,12 +69,22 @@ export const useAuth = () => {
     }
   }, []);
 
+  const resetPassword = useCallback(async (email: string) => {
+    try {
+      await sendPasswordResetEmail(auth, email);
+    } catch (error) {
+      console.error('Error resetting password:', error);
+      throw error;
+    }
+  }, []);
+
   return {
     loading,
     login,
     loginWithGoogle,
     logout,
     register,
+    resetPassword,
     user
   };
 };
