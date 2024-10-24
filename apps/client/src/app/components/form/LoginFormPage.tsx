@@ -15,15 +15,23 @@ export const LoginFormPage = () => {
   const [viewMode, setViewMode] = useState<'login' | 'reset'>('login');
   const navigate = useNavigate();
 
-  const handleSubmit = useCallback(async (data: { email: string; password: string }) => {
-    const action = viewMode === 'login' ? login : register;
+  const handleLoginSubmit = useCallback(async (data: { email: string; password: string }) => {
     try {
-      await action(data.email, data.password);
+      await login(data.email, data.password);
       setErrors({});
     } catch {
       setErrors({ email: 'Failed to authenticate. Please try again.' });
     }
-  }, [login, register, viewMode]);
+  }, [login]);
+
+  const handleRegisterSubmit = useCallback(async (data: { email: string; password: string }) => {
+    try {
+      await register(data.email, data.password);
+      setErrors({});
+    } catch {
+      setErrors({ email: 'Failed to create an account. Please try again.' });
+    }
+  }, [register]);
 
   const handleGoogleLogin = useCallback(async () => {
     try {
@@ -43,14 +51,14 @@ export const LoginFormPage = () => {
       <ResetPassword />
     ) : (
       <LoginForm
-        onLoginSubmit={handleSubmit}
-        onRegisterSubmit={handleSubmit}
+        onLoginSubmit={handleLoginSubmit}
+        onRegisterSubmit={handleRegisterSubmit}
         errors={errors}
         onGoogleLogin={handleGoogleLogin}
         isLogin={isLogin}
       />
     );
-  }, [errors, handleSubmit, handleGoogleLogin, isLogin, viewMode]);
+  }, [viewMode, handleLoginSubmit, handleRegisterSubmit, errors, handleGoogleLogin, isLogin]);
 
   const renderActionButtons = useCallback(() => {
     if (viewMode === 'reset') {
