@@ -1,6 +1,7 @@
 import { StrictMode } from 'react';
 import * as ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
+import { ThemeProvider } from '@pps-easy/ui/theme-provider';
 
 import App from './app/app';
 
@@ -10,7 +11,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <StrictMode>
     <BrowserRouter>
-      <App />
+      <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
+        <App />
+      </ThemeProvider>
     </BrowserRouter>
   </StrictMode>
 );

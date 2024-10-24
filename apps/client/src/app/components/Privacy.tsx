@@ -2,7 +2,7 @@ import React from 'react';
 
 export const Privacy = () => {
   return (
-    <div className="w-full max-h-[595px] p-6 bg-black text-white rounded-lg shadow-lg border border-border overflow-auto">
+    <div className="w-full max-h-[595px] p-6 bg-background text-foreground rounded-lg shadow-lg border border-border overflow-auto">
       <h2 className="text-3xl font-bold mb-4 text-primary">Politique de confidentialité</h2>
       <p>
         Votre vie privée est importante pour nous. Cette politique explique comment nous collectons, utilisons et protégeons vos informations personnelles lorsque vous utilisez nos services.

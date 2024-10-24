@@ -26,9 +26,10 @@ export const Navbar = () => {
   }, []);
 
   return (
-    <nav className="bg-background border-b shadow-md">
+    <nav className="bg-background border-b border-border shadow-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
+          {/* Navigation items for desktop */}
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-6">
               {navItems.map((item) => (
@@ -47,6 +48,8 @@ export const Navbar = () => {
               ))}
             </div>
           </div>
+
+          {/* Mobile menu button */}
           <div className="md:hidden">
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger asChild>
@@ -59,7 +62,8 @@ export const Navbar = () => {
                   <span className="sr-only">Open main menu</span>
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-[300px] sm:w-[400px] p-4">
+
+              <SheetContent side="right" className="w-[300px] sm:w-[400px] p-4 bg-background text-foreground">
                 <nav className="flex flex-col gap-4">
                   {navItems.map((item) => (
                     <Link
