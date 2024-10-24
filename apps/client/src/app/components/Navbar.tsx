@@ -1,27 +1,43 @@
 import React, { useCallback, useState } from "react";
-import { Link } from "react-router-dom";
-import { Medal, Menu } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { LogOut, Medal, Menu } from "lucide-react";
 
 import { Button } from "@pps-easy/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@pps-easy/ui/sheet";
+import { useAuth } from '../hooks/useAuth';
 
 interface NavItems {
   name: string;
   href: string;
   icon: React.ElementType;
+  onClick?: () => void;
 }
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("/");
+  const navigate = useNavigate();
+  const { logout } = useAuth();
 
   const navItems: NavItems[] = [
     { name: "Générer un certificat", href: "/", icon: Medal },
-    // ROP: Add a new items to the navbar here
+    {
+      name: "Logout",
+      href: "/login",
+      icon: LogOut,
+      onClick: async () => {
+        await logout();
+        navigate('/login');
+      },
+    },
   ];
 
-  const handleNavClick = useCallback((href: string) => {
-    setActiveTab(href);
+  const handleNavClick = useCallback((href: string, onClick?: () => void) => {
+    if (onClick) {
+      onClick();
+    } else {
+      setActiveTab(href);
+    }
     setIsOpen(false);
   }, []);
 
@@ -40,7 +56,7 @@ export const Navbar = () => {
                     ? "bg-primary text-primary-foreground"
                     : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
                     }`}
-                  onClick={() => handleNavClick(item.href)}
+                  onClick={() => handleNavClick(item.href, item.onClick)}
                 >
                   <item.icon className="w-5 h-5 mr-2" />
                   {item.name}
@@ -73,7 +89,7 @@ export const Navbar = () => {
                         ? "bg-primary text-primary-foreground"
                         : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
                         }`}
-                      onClick={() => handleNavClick(item.href)}
+                      onClick={() => handleNavClick(item.href, item.onClick)}
                     >
                       <item.icon className="w-5 h-5 mr-2" />
                       {item.name}
