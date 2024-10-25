@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import { Link } from "react-router-dom";
 import { Mail } from "lucide-react";
 import { Button } from "@pps-easy/ui/button";
@@ -16,7 +16,7 @@ interface SocialLink {
   name: string;
 }
 
-export const Footer = () => {
+export const Footer: FC = () => {
   const footerLinks: FooterLink[] = [
     { name: "À propos", href: "/about" },
     { name: "Conditions d'utilisation", href: "/terms" },

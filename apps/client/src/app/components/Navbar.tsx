@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { FC, useCallback, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { LogOut, FileUser, Menu } from "lucide-react";
 import { Button } from "@pps-easy/ui/button";
@@ -12,7 +12,7 @@ interface NavItems {
   onClick?: () => void;
 }
 
-export const Navbar = () => {
+export const Navbar: FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("/");
   const navigate = useNavigate();

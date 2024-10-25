@@ -1,19 +1,23 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { LoginForm } from './LoginForm';
-import { Testimonial } from '../Testimonial';
+import { Quotes } from '../Quotes';
 import { Logo } from '../Logo';
 import { useAuth } from '../../hooks/useAuth';
 import { Loader } from '../Loader';
 import { ResetPassword } from './ResetPassword';
 import Home from '../../../assets/Home.jpg';
 
-export const LoginFormPage = () => {
+export const LoginFormPage: FC = () => {
   const { loading, login, loginWithGoogle, register, user } = useAuth();
   const [errors, setErrors] = useState<{ email?: string }>({});
   const [isLogin, setIsLogin] = useState(true);
   const [viewMode, setViewMode] = useState<'login' | 'reset'>('login');
   const navigate = useNavigate();
+
+  const handleGuestCertificate = useCallback(() => {
+    navigate('/generate-certificate');
+  }, [navigate]);
 
   const handleLoginSubmit = useCallback(
     async (data: { email: string; password: string }) => {
@@ -57,11 +61,11 @@ export const LoginFormPage = () => {
       <ResetPassword />
     ) : (
       <LoginForm
+        errors={errors}
+        isLogin={isLogin}
+        onGoogleLogin={handleGoogleLogin}
         onLoginSubmit={handleLoginSubmit}
         onRegisterSubmit={handleRegisterSubmit}
-        errors={errors}
-        onGoogleLogin={handleGoogleLogin}
-        isLogin={isLogin}
       />
     );
   }, [viewMode, handleLoginSubmit, handleRegisterSubmit, errors, handleGoogleLogin, isLogin]);
@@ -122,10 +126,17 @@ export const LoginFormPage = () => {
             src={Home}
           />
         </div>
-        <Testimonial />
+        <Quotes />
       </div>
 
-      <div className="flex-grow w-full lg:w-1/2 bg-gray-900 flex flex-col items-center justify-center p-6 lg:p-12">
+      <div className="flex-grow w-full lg:w-1/2 bg-gray-900 flex flex-col items-center justify-center p-6 lg:p-12 relative">
+        <button
+          onClick={handleGuestCertificate}
+          className="text-blue-300 hover:underline transition-all text-sm absolute top-16 right-14"
+        >
+          Générer un certificat en tant qu'invité
+        </button>
+
         <div className="w-full max-w-lg">
           <h2 className="text-white text-4xl font-bold mb-6 text-center">
             {getTitle()}
@@ -140,6 +151,6 @@ export const LoginFormPage = () => {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 };

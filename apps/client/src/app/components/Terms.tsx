@@ -1,6 +1,6 @@
-import React from 'react';
+import { FC } from 'react';
 
-export const Terms = () => {
+export const Terms: FC = () => {
   return (
     <div className="w-full max-h-[595px] p-6 bg-background text-foreground rounded-lg shadow-lg border border-border overflow-auto">
       <h2 className="text-3xl font-bold mb-4 text-primary">Conditions d'utilisation</h2>

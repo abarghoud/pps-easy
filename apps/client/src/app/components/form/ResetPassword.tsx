@@ -1,12 +1,12 @@
-import { useState } from 'react';
+import { FC, useCallback, useState } from 'react';
 import { useAuth } from '../../hooks/useAuth';
 
-export const ResetPassword = () => {
+export const ResetPassword: FC = () => {
   const { resetPassword } = useAuth();
   const [resetEmail, setResetEmail] = useState('');
   const [message, setMessage] = useState('');
 
-  const handleResetPassword = async () => {
+  const handleResetPassword = useCallback(async () => {
     try {
       await resetPassword(resetEmail);
       setMessage("Email de réinitialisation envoyé !");
@@ -15,7 +15,7 @@ export const ResetPassword = () => {
       console.error(error);
       setMessage("Erreur lors de l'envoi de l'email de réinitialisation.");
     }
-  };
+  }, [resetEmail, resetPassword]);
 
   return (
     <div className="flex flex-col gap-3 mt-4">
@@ -24,7 +24,7 @@ export const ResetPassword = () => {
         type="email"
         placeholder="Entrez votre email"
         value={resetEmail}
-        onChange={(e) => setResetEmail(e.target.value)}
+        onChange={(event) => setResetEmail(event.target.value)}
         className="border border-gray-600 rounded-md p-2 w-full"
       />
       <button

@@ -1,4 +1,6 @@
-export const Testimonial = () => {
+import { FC } from "react";
+
+export const Quotes: FC = () => {
   return (
     <blockquote className="text-white">
       <p>“No human is limited.”</p>

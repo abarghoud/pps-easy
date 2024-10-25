@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { FC, useCallback, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { eventFormSchema, FormValues } from '../../schema/event-form-schema';
@@ -6,11 +6,8 @@ import { EventForm } from './EventForm';
 import { EventFormService } from '../../service/event-form-service';
 import { PPSCertificateService } from '../../api/pps-certificate-service';
 
-export const EventFormPage: React.FC = () => {
+export const EventFormPage: FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const ppsGenerateAPI = new PPSCertificateService();
-  const eventFormService = new EventFormService(ppsGenerateAPI);
 
   const formValues = useForm<FormValues>({
     resolver: zodResolver(eventFormSchema),
@@ -24,7 +21,10 @@ export const EventFormPage: React.FC = () => {
     },
   });
 
-  const onSubmit = async (values: FormValues) => {
+  const onSubmit = useCallback(async (values: FormValues) => {
+    const ppsGenerateAPI = new PPSCertificateService();
+    const eventFormService = new EventFormService(ppsGenerateAPI);
+
     setIsSubmitting(true);
 
     try {
@@ -43,7 +43,7 @@ export const EventFormPage: React.FC = () => {
     } finally {
       setIsSubmitting(false);
     }
-  };
+  }, [formValues]);
 
 
   return (

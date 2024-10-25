@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 
 const TIME_TO_REDIRECT = 2000;
 
-export const WelcomePage = () => {
+export const WelcomePage: FC = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
 

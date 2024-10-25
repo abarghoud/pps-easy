@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC, useCallback } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { Button } from '@pps-easy/ui/button';
 import { db } from '../../config/firebase';
@@ -10,10 +10,10 @@ interface ContactFormValues {
   message: string;
 }
 
-export const ContactForm = () => {
+export const ContactForm: FC = () => {
   const { control, handleSubmit, formState: { isSubmitting }, reset } = useForm<ContactFormValues>();
 
-  const onSubmit = async (data: ContactFormValues) => {
+  const onSubmit = useCallback(async (data: ContactFormValues) => {
     console.log('Form Data:', data);
     try {
       await addDoc(collection(db, 'messages'), data);
@@ -22,7 +22,7 @@ export const ContactForm = () => {
     } catch (error) {
       console.error('Error sending message:', error);
     }
-  };
+  }, [reset]);
 
   return (
     <div className="w-full max-w-2xl mx-auto min-h-[595px] flex flex-col gap-2 p-6 bg-card rounded-lg shadow-md border border-border overflow-auto">

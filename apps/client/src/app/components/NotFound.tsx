@@ -1,8 +1,8 @@
-import React from 'react';
+import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import NotFoundImage from '../../assets/NotFoundImage.jpg';
 
-export const NotFound = () => {
+export const NotFound: FC = () => {
   return (
     <div className="flex flex-col items-center justify-center h-full px-6 py-8 bg-background">
       <img src={NotFoundImage} alt="404 Not Found" className="w-[35rem] mb-4 rounded-sm" />

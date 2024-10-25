@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { Control, ControllerRenderProps } from 'react-hook-form';
 import { FormField, FormItem, FormLabel, FormControl, FormMessage } from '@pps-easy/ui/form';
 import { Input } from '@pps-easy/ui/input';
@@ -24,7 +24,7 @@ interface SelectFieldProps {
 
 const DATE_FIELD_MAX_LENGTH = 10;
 
-export const InputField: React.FC<InputFieldProps> = ({
+export const InputField: FC<InputFieldProps> = ({
   control,
   isDateField = false,
   label,
@@ -56,7 +56,7 @@ export const InputField: React.FC<InputFieldProps> = ({
   />
 );
 
-export const SelectField: React.FC<SelectFieldProps> = ({
+export const SelectField: FC<SelectFieldProps> = ({
   control,
   label,
   name,

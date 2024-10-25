@@ -1,7 +1,7 @@
-import React, { useCallback } from 'react';
+import { FC, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export const Contact = () => {
+export const Contact: FC = () => {
   const navigate = useNavigate();
 
   const redirectToContactForm = useCallback(() => {

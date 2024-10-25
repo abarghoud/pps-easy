@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { FormProvider, UseFormReturn } from 'react-hook-form';
 import { Card, CardContent, CardHeader, CardTitle } from '@pps-easy/ui/card';
 import { Button } from '@pps-easy/ui/button';
@@ -11,7 +11,7 @@ interface EventFormProps {
   onSubmit: (data: FormValues) => void;
 }
 
-export const EventForm: React.FC<EventFormProps> = ({
+export const EventForm: FC<EventFormProps> = ({
   formMethods,
   isSubmitting,
   onSubmit
