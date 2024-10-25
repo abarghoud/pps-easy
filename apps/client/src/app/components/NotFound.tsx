@@ -10,7 +10,7 @@ export const NotFound = () => {
       <p className="text-muted-foreground text-lg mb-4">
         Oups... Il semblerait que vous soyez hors parcours !
       </p>
-      <Link to="/" className="inline-flex items-center px-4 py-2 bg-primary text-white rounded-md shadow-md hover:bg-primary-foreground transition duration-200">
+      <Link to="/" className="inline-flex items-center px-4 py-2 bg-primary text-white rounded-md shadow-md">
         Retour à l'accueil
       </Link>
     </div>
