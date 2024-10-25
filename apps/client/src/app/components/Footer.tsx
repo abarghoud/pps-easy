@@ -25,7 +25,7 @@ export const Footer: FC = () => {
   ];
 
   const socialLinks: SocialLink[] = [
-    { name: "Twitter", href: "https://github.com/abarghoud/pps-easy", icon: GitHubLogoIcon },
+    { name: "Github", href: "https://github.com/abarghoud/pps-easy", icon: GitHubLogoIcon },
     { name: "Email", href: "/contact-form", icon: Mail },
   ];
 

@@ -6,12 +6,16 @@ import { routesConfig } from "./routes/route";
 import { PrivateRoute } from "./routes/components/PrivateRoute";
 import { useTheme } from "@pps-easy/ui/theme-provider";
 import { GuestPage } from "./components/GuestPage";
+import { useAuth } from "./hooks/useAuth";
 
 export function App() {
   const { theme } = useTheme();
+  const { loading } = useAuth();
 
   return (
-    <div className={`min-h-screen flex flex-col justify-center ${theme === "dark" ? "bg-background dark:bg-background" : "bg-white"}`}>
+    <div className={`
+      min-h-screen flex flex-col justify-center ${theme === "dark" ? "bg-background dark:bg-background" : "bg-white"} ${loading ? "items-center" : ""}
+    `}>
       <Routes>
         <Route path="/login" element={<AuthLayout />}>
           <Route path="" element={<LoginFormPage />} />
