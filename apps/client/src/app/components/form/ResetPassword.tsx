@@ -1,8 +1,12 @@
 import { FC, useCallback, useState } from 'react';
+import { FirebaseAuthenticationService } from '../../service/firebase-authentication-service';
+import { auth } from "../../config/firebase";
 import { useAuth } from '../../hooks/useAuth';
 
 export const ResetPassword: FC = () => {
-  const { resetPassword } = useAuth();
+  const authService = new FirebaseAuthenticationService(auth);
+
+  const { resetPassword } = useAuth(authService);
   const [resetEmail, setResetEmail] = useState('');
   const [message, setMessage] = useState('');
 

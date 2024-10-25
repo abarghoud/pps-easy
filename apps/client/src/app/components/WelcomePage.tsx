@@ -1,11 +1,15 @@
 import { FC, useEffect } from 'react';
-import { useAuth } from '../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
+import { FirebaseAuthenticationService } from '../service/firebase-authentication-service';
+import { auth } from "../config/firebase";
+import { useAuth } from '../hooks/useAuth';
 
 const TIME_TO_REDIRECT = 2000;
 
 export const WelcomePage: FC = () => {
-  const { user } = useAuth();
+  const authService = new FirebaseAuthenticationService(auth);
+
+  const { user } = useAuth(authService);
   const navigate = useNavigate();
 
   useEffect(() => {

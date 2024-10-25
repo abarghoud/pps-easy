@@ -1,4 +1,6 @@
 import { Routes, Route } from "react-router-dom";
+import { FirebaseAuthenticationService } from './service/firebase-authentication-service';
+import { auth } from "./config/firebase";
 import { MainLayout } from "./layout/MainLayout";
 import { AuthLayout } from "./layout/AuthLayout";
 import { LoginFormPage } from "./components/form/LoginFormPage";
@@ -9,8 +11,10 @@ import { GuestPage } from "./components/GuestPage";
 import { useAuth } from "./hooks/useAuth";
 
 export function App() {
+  const authService = new FirebaseAuthenticationService(auth);
+
   const { theme } = useTheme();
-  const { loading } = useAuth();
+  const { loading } = useAuth(authService);
 
   return (
     <div className={`

@@ -1,5 +1,7 @@
 import React, { FC, useCallback, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { FirebaseAuthenticationService } from '../service/firebase-authentication-service';
+import { auth } from "../config/firebase";
 import { LogOut, FileUser, Menu } from "lucide-react";
 import { Button } from "@pps-easy/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@pps-easy/ui/sheet";
@@ -13,10 +15,12 @@ interface NavItems {
 }
 
 export const Navbar: FC = () => {
+  const authService = new FirebaseAuthenticationService(auth);
+
   const [isOpen, setIsOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("/");
   const navigate = useNavigate();
-  const { logout } = useAuth();
+  const { logout } = useAuth(authService);
 
   const navItems: NavItems[] = [
     { name: "Générer un certificat", href: "/", icon: FileUser },

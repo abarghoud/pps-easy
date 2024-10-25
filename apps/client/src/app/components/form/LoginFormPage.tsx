@@ -1,5 +1,7 @@
 import { useState, useEffect, useCallback, FC } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FirebaseAuthenticationService } from '../../service/firebase-authentication-service';
+import { auth } from "../../config/firebase";
 import { LoginForm } from './LoginForm';
 import { Quotes } from '../Quotes';
 import { Logo } from '../Logo';
@@ -9,7 +11,9 @@ import { ResetPassword } from './ResetPassword';
 import Home from '../../../assets/Home.jpg';
 
 export const LoginFormPage: FC = () => {
-  const { loading, login, loginWithGoogle, register, user } = useAuth();
+  const authService = new FirebaseAuthenticationService(auth);
+
+  const { loading, login, loginWithGoogle, register, user } = useAuth(authService);
   const [errors, setErrors] = useState<{ email?: string }>({});
   const [isLogin, setIsLogin] = useState(true);
   const [viewMode, setViewMode] = useState<'login' | 'reset'>('login');
