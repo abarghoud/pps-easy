@@ -15,23 +15,29 @@ export const LoginFormPage = () => {
   const [viewMode, setViewMode] = useState<'login' | 'reset'>('login');
   const navigate = useNavigate();
 
-  const handleLoginSubmit = useCallback(async (data: { email: string; password: string }) => {
-    try {
-      await login(data.email, data.password);
-      setErrors({});
-    } catch {
-      setErrors({ email: 'Failed to authenticate. Please try again.' });
-    }
-  }, [login]);
+  const handleLoginSubmit = useCallback(
+    async (data: { email: string; password: string }) => {
+      try {
+        await login(data.email, data.password);
+        setErrors({});
+      } catch {
+        setErrors({ email: 'Failed to authenticate. Please try again.' });
+      }
+    },
+    [login]
+  );
 
-  const handleRegisterSubmit = useCallback(async (data: { email: string; password: string }) => {
-    try {
-      await register(data.email, data.password);
-      setErrors({});
-    } catch {
-      setErrors({ email: 'Failed to create an account. Please try again.' });
-    }
-  }, [register]);
+  const handleRegisterSubmit = useCallback(
+    async (data: { email: string; password: string }) => {
+      try {
+        await register(data.email, data.password);
+        setErrors({});
+      } catch {
+        setErrors({ email: 'Failed to create an account. Please try again.' });
+      }
+    },
+    [register]
+  );
 
   const handleGoogleLogin = useCallback(async () => {
     try {
@@ -73,9 +79,9 @@ export const LoginFormPage = () => {
     }
 
     return (
-      <div className='flex flex-col items-center'>
+      <div className="flex flex-col items-center">
         <button
-          onClick={() => setIsLogin(prev => !prev)}
+          onClick={() => setIsLogin((prev) => !prev)}
           className="text-blue-300 hover:underline transition-all text-sm mb-6"
         >
           {isLogin ? "Besoin d'un compte ? Créez-en un !" : "Vous avez déjà un compte ? Connectez-vous !"}
@@ -119,15 +125,17 @@ export const LoginFormPage = () => {
         <Testimonial />
       </div>
 
-      <div className="flex-grow w-full lg:w-1/2 bg-gray-900 flex items-center justify-center p-6 lg:p-12">
-        <div className="bg-gray-800 p-8 lg:p-10 rounded-lg w-full max-w-md shadow-lg transition-transform duration-300 ease-in-out transform hover:scale-105">
-          <h2 className="text-white text-3xl font-bold mb-4 text-center">
+      <div className="flex-grow w-full lg:w-1/2 bg-gray-900 flex flex-col items-center justify-center p-6 lg:p-12">
+        <div className="w-full max-w-lg">
+          <h2 className="text-white text-4xl font-bold mb-6 text-center">
             {getTitle()}
           </h2>
 
-          {renderForm()}
+          <div className="max-w-md mx-auto space-y-4">
+            {renderForm()}
+          </div>
 
-          <div className="flex justify-center mt-4">
+          <div className="flex justify-center mt-6">
             {renderActionButtons()}
           </div>
         </div>

@@ -18,11 +18,11 @@ export const EventForm: React.FC<EventFormProps> = ({
 }) => {
   return (
     <FormProvider {...formMethods}>
-      <Card className="w-full max-w-2xl mx-auto min-h-[595px] flex flex-col justify-center p-6 bg-card rounded-lg shadow-2xl border-2 border-border overflow-auto">
-        <CardHeader>
-          <CardTitle className="text-3xl font-bold text-center text-primary">PPS Easy</CardTitle>
+      <Card className="w-full max-w-4xl mx-auto min-h-[595px] flex flex-col p-6 bg-card rounded-lg shadow-2xl border-2 border-border overflow-auto">
+        <CardHeader className='mb-8'>
+          <CardTitle className="text-3xl font-bold text-center text-primary">PPS Easy - Nouveau Certificat</CardTitle>
         </CardHeader>
-        <CardContent className="text-foreground">
+        <CardContent className="text-foreground mt-8">
           <form onSubmit={formMethods.handleSubmit(onSubmit)} className="space-y-6 flex-grow">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <InputField

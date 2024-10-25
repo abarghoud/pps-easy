@@ -4,10 +4,12 @@ import { AuthLayout } from "./layout/AuthLayout";
 import { LoginFormPage } from "./components/form/LoginFormPage";
 import { routesConfig } from "./routes/route";
 import { PrivateRoute } from "./routes/components/PrivateRoute";
+import { useTheme } from "@pps-easy/ui/theme-provider";
 
 export function App() {
+  const { theme } = useTheme();
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className={`min-h-screen flex flex-col ${theme === "dark" ? "bg-background dark:bg-background" : "bg-white"}`}>
       <Routes>
         <Route path="/login" element={<AuthLayout />}>
           <Route path="" element={<LoginFormPage />} />
