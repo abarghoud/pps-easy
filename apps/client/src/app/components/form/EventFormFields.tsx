@@ -24,7 +24,7 @@ interface SelectFieldProps {
 
 const DATE_FIELD_MAX_LENGTH = 10;
 
-export const InputField: FC<InputFieldProps> = ({
+export const EventFormInputField: FC<InputFieldProps> = ({
   control,
   isDateField = false,
   label,
@@ -56,7 +56,7 @@ export const InputField: FC<InputFieldProps> = ({
   />
 );
 
-export const SelectField: FC<SelectFieldProps> = ({
+export const EventFormSelectField: FC<SelectFieldProps> = ({
   control,
   label,
   name,

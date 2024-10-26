@@ -1,6 +1,6 @@
 import { FC, useCallback, useState } from "react";
-import { Input } from './Input';
-import { Button } from './Button';
+import { Button } from '@pps-easy/ui/button';
+import { Input } from '@pps-easy/ui/input';
 import { SiGooglechrome } from 'react-icons/si';
 
 interface LoginFormProps {
@@ -33,38 +33,40 @@ export const LoginForm: FC<LoginFormProps> = ({
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <Input
-        error={errors.email}
-        label="Email"
+        className="border border-blue-200 rounded-md focus:ring focus:ring-blue-500 focus:border-transparent transition duration-150 text-foreground"
         name="email"
+        onChange={(event) => setEmail(event.target.value)}
         placeholder="name@example.com"
         type="email"
         value={email}
-        onChange={(event) => setEmail(event.target.value)}
-        className="border border-gray-600 rounded-md focus:ring focus:ring-blue-500 focus:border-transparent transition duration-150"
       />
       <Input
-        label="Password"
+        className="border border-blue-200 rounded-md focus:ring focus:ring-blue-500 focus:border-transparent transition duration-150 text-foreground"
         name="password"
+        onChange={(event) => setPassword(event.target.value)}
         placeholder="Your password"
         type="password"
         value={password}
-        onChange={(event) => setPassword(event.target.value)}
-        className="border border-gray-600 rounded-md focus:ring focus:ring-blue-500 focus:border-transparent transition duration-150"
       />
+      {errors.email ? (
+        <p className="flex items-center justify-center text-red-500 text-sm">{errors.email}</p>
+      ) : null}
       <Button
-        className="w-full bg-blue-600 hover:bg-blue-700 text-blue font-semibold py-2 rounded-md transition duration-200"
-        label={isLogin ? "Sign In" : "Create Account"}
+        className="w-full bg-blue-200 text-blue font-semibold py-2 rounded-md transition duration-200"
         type="submit"
         variant="ghost"
-      />
+      >
+        {isLogin ? "Sign In" : "Create Account"}
+      </Button>
       <Button
-        className="w-full bg-blue-600 hover:bg-blue-700 text-blue font-semibold py-2 rounded-md transition duration-200"
-        icon={<SiGooglechrome className="h-5 w-5 mr-2" />}
-        label="Sign In with Google"
+        className="w-full bg-blue-200 text-blue font-semibold py-2 rounded-md transition duration-200"
         onClick={onGoogleLogin}
         type="button"
         variant="ghost"
-      />
+      >
+        <SiGooglechrome className="h-5 w-5 mr-2" />
+        Sign In with Google
+      </Button>
     </form>
   );
 };
