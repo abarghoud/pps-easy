@@ -1,10 +1,13 @@
-import { useState, useEffect, useCallback } from 'react';
-import { User } from 'firebase/auth';
-import { IFirebaseAuthenticationService } from '../service/firebase-authentication-requirements';
+import { useState, useEffect, useCallback, useContext } from 'react';
 
-export const useAuth = (authService: IFirebaseAuthenticationService) => {
-  const [user, setUser] = useState<User | null>(null);
+import { AuthenticationContext } from '../contexts/authentication-context';
+import { IAuthenticationService } from '../service/authentication.interface';
+import { IUser } from '../interfaces/user.interface';
+
+export const useAuth = () => {
+  const [user, setUser] = useState<IUser | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const authService = useContext<IAuthenticationService>(AuthenticationContext);
 
   useEffect(() => {
     const unsubscribe = authService.onAuthStateChanged((currentUser) => {
@@ -17,8 +20,8 @@ export const useAuth = (authService: IFirebaseAuthenticationService) => {
 
   const login = useCallback(async (email: string, password: string) => {
     try {
-      const userCredential = await authService.login(email, password);
-      setUser(userCredential.user);
+      const user = await authService.login(email, password);
+      setUser(user);
     } catch (error) {
       console.error('Error signing in with email and password:', error);
       throw error;
@@ -28,8 +31,8 @@ export const useAuth = (authService: IFirebaseAuthenticationService) => {
   const register = useCallback(async (email: string, password: string) => {
     setLoading(true);
     try {
-      const userCredential = await authService.register(email, password);
-      setUser(userCredential.user);
+      const user = await authService.register(email, password);
+      setUser(user);
     } catch (error) {
       console.error("Registration error:", error);
       throw error;
@@ -41,7 +44,7 @@ export const useAuth = (authService: IFirebaseAuthenticationService) => {
   const loginWithGoogle = useCallback(async () => {
     try {
       const result = await authService.loginWithGoogle();
-      setUser(result.user);
+      setUser(result);
     } catch (error) {
       console.error('Error signing in with Google:', error);
       throw error;

@@ -8,15 +8,16 @@ import {
   sendEmailVerification,
   sendPasswordResetEmail,
   User,
-  UserCredential,
   Auth,
 } from 'firebase/auth';
-import { IFirebaseAuthenticationService } from './firebase-authentication-requirements';
+import { IAuthenticationService } from './authentication.interface';
+import { auth } from '../config/firebase';
+import { IUser } from '../interfaces/user.interface';
 
-export class FirebaseAuthenticationService implements IFirebaseAuthenticationService {
+export class FirebaseAuthenticationService implements IAuthenticationService {
   private readonly auth: Auth;
 
-  constructor(auth: Auth) {
+  constructor() {
     this.auth = auth;
   }
 
@@ -24,19 +25,19 @@ export class FirebaseAuthenticationService implements IFirebaseAuthenticationSer
     return onAuthStateChanged(this.auth, callback);
   }
 
-  public async login(email: string, password: string): Promise<UserCredential> {
-    return await signInWithEmailAndPassword(this.auth, email, password);
+  public async login(email: string, password: string): Promise<IUser> {
+    return (await signInWithEmailAndPassword(this.auth, email, password)).user;
   }
 
-  public async register(email: string, password: string): Promise<UserCredential> {
+  public async register(email: string, password: string): Promise<IUser> {
     const userCredential = await createUserWithEmailAndPassword(this.auth, email, password);
     await sendEmailVerification(userCredential.user);
-    return userCredential;
+    return userCredential.user;
   }
 
-  public async loginWithGoogle(): Promise<UserCredential> {
+  public async loginWithGoogle(): Promise<IUser> {
     const provider = new GoogleAuthProvider();
-    return await signInWithPopup(this.auth, provider);
+    return (await signInWithPopup(this.auth, provider)).user;
   }
 
   public async logout(): Promise<void> {

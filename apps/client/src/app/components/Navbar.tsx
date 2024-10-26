@@ -15,12 +15,10 @@ interface NavItems {
 }
 
 export const Navbar: FC = () => {
-  const authService = new FirebaseAuthenticationService(auth);
-
   const [isOpen, setIsOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("/");
   const navigate = useNavigate();
-  const { logout } = useAuth(authService);
+  const { logout } = useAuth();
 
   const navItems: NavItems[] = [
     { name: "Générer un certificat", href: "/", icon: FileUser },
