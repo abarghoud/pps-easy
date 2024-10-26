@@ -42,4 +42,4 @@ Thumbs.db
 .nx/workspace-data
 
 # .env file
-.env
+apps/client/.env
