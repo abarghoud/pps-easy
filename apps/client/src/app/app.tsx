@@ -9,6 +9,8 @@ import { GuestPage } from "./components/GuestPage";
 import { useAuth } from "./hooks/useAuth";
 import { AuthenticationContext } from './contexts/authentication-context';
 import { FirebaseAuthenticationService } from './service/firebase-authentication-service';
+import { RecaptchaGeneratorContext } from './contexts/recaptcha-generator-context';
+import { GoogleRecaptchaGenerator } from '@pps-easy/recaptcha/google';
 
 export function App() {
   const { theme } = useTheme();
@@ -16,25 +18,27 @@ export function App() {
 
   return (
     <AuthenticationContext.Provider value={new FirebaseAuthenticationService()}>
-      <div className={`
-        min-h-screen flex flex-col justify-center ${theme === "dark" ? "bg-background dark:bg-background" : "bg-white"} ${loading ? "items-center" : ""}
-      `}>
-        <Routes>
-          <Route path="/login" element={<AuthLayout />}>
-            <Route path="" element={<LoginFormPage />} />
-          </Route>
-
-          <Route path="/generate-certificate" element={<GuestPage />} />
-
-          <Route element={<PrivateRoute />}>
-            <Route element={<MainLayout />}>
-              {routesConfig.map((route) => (
-                <Route key={route.path} path={route.path} element={route.element} />
-              ))}
+      <RecaptchaGeneratorContext.Provider value={new GoogleRecaptchaGenerator(process.env.REACT_APP_RECAPTCHA_SITE_KEY || '')}>
+        <div className={`
+          min-h-screen flex flex-col justify-center ${theme === "dark" ? "bg-background dark:bg-background" : "bg-white"} ${loading ? "items-center" : ""}
+        `}>
+          <Routes>
+            <Route path="/login" element={<AuthLayout />}>
+              <Route path="" element={<LoginFormPage />} />
             </Route>
-          </Route>
-        </Routes>
-      </div>
+
+            <Route path="/generate-certificate" element={<GuestPage />} />
+
+            <Route element={<PrivateRoute />}>
+              <Route element={<MainLayout />}>
+                {routesConfig.map((route) => (
+                  <Route key={route.path} path={route.path} element={route.element} />
+                ))}
+              </Route>
+            </Route>
+          </Routes>
+        </div>
+      </RecaptchaGeneratorContext.Provider>
     </AuthenticationContext.Provider>
   );
 }

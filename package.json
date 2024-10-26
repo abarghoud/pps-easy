@@ -7,6 +7,7 @@
   },
   "private": true,
   "dependencies": {
+    "@google-cloud/recaptcha-enterprise": "^5.11.0",
     "@hookform/resolvers": "^3.9.0",
     "@nestjs/axios": "^3.0.3",
     "@nestjs/common": "^10.0.2",
@@ -63,6 +64,7 @@
     "@swc/core": "~1.5.7",
     "@swc/helpers": "~0.5.11",
     "@testing-library/react": "15.0.6",
+    "@types/grecaptcha": "^3.0.9",
     "@types/jest": "^29.5.12",
     "@types/luxon": "^3.4.2",
     "@types/node": "~18.16.9",
