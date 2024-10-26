@@ -1,39 +1,41 @@
-import { Route, Routes } from "react-router-dom";
-import { Helmet } from "react-helmet";
-import { Navbar } from "./components/Navbar";
-import { EventFormPage } from "./components/form/EventFormPage";
-import { Footer } from "./components/Footer";
-import { About } from "./components/About";
-import { Terms } from "./components/Terms";
-import { Privacy } from "./components/Privacy";
-import { Contact } from "./components/Contact";
-import { ContactForm } from "./components/form/ContactForm";
-import { NotFound } from "./components/NotFound";
+import { Routes, Route } from "react-router-dom";
+import { MainLayout } from "./layout/MainLayout";
+import { AuthLayout } from "./layout/AuthLayout";
+import { LoginFormPage } from "./components/form/LoginFormPage";
+import { routesConfig } from "./routes/route";
+import { PrivateRoute } from "./routes/components/PrivateRoute";
 import { useTheme } from "@pps-easy/ui/theme-provider";
+import { GuestPage } from "./components/GuestPage";
+import { useAuth } from "./hooks/useAuth";
+import { AuthenticationContext } from './contexts/authentication-context';
+import { FirebaseAuthenticationService } from './service/firebase-authentication-service';
 
 export function App() {
   const { theme } = useTheme();
+  const { loading } = useAuth();
 
   return (
-    <div className={`min-h-screen flex flex-col ${theme === "dark" ? "bg-background dark:bg-background" : "bg-white"}`}>
-      <Helmet>
-        <title>PPS Easy - Home</title>
-        <meta name="description" content="PPS Easy - Generate your running certificates easily." />
-      </Helmet>
-      <Navbar />
-      <main className="flex-grow container mx-auto px-4 py-8">
+    <AuthenticationContext.Provider value={new FirebaseAuthenticationService()}>
+      <div className={`
+        min-h-screen flex flex-col justify-center ${theme === "dark" ? "bg-background dark:bg-background" : "bg-white"} ${loading ? "items-center" : ""}
+      `}>
         <Routes>
-          <Route path="/" element={<EventFormPage />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/terms" element={<Terms />} />
-          <Route path="/privacy" element={<Privacy />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/contact-form" element={<ContactForm />} />
-          <Route path="*" element={<NotFound />} />
+          <Route path="/login" element={<AuthLayout />}>
+            <Route path="" element={<LoginFormPage />} />
+          </Route>
+
+          <Route path="/generate-certificate" element={<GuestPage />} />
+
+          <Route element={<PrivateRoute />}>
+            <Route element={<MainLayout />}>
+              {routesConfig.map((route) => (
+                <Route key={route.path} path={route.path} element={route.element} />
+              ))}
+            </Route>
+          </Route>
         </Routes>
-      </main>
-      <Footer />
-    </div>
+      </div>
+    </AuthenticationContext.Provider>
   );
 }
 

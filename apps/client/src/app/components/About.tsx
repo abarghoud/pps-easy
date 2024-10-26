@@ -1,7 +1,7 @@
-import React from 'react';
+import { FC } from 'react';
 import { CheckCircle } from 'lucide-react';
 
-export const About = () => {
+export const About: FC = () => {
   return (
     <div className="w-full max-w-2xl mx-auto min-h-[595px] flex flex-col justify-around p-6 bg-card rounded-lg shadow-md border border-border overflow-auto">
       <h2 className="text-3xl font-bold mb-4 text-primary">Présentation de PPS Easy</h2>

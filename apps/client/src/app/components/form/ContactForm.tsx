@@ -1,6 +1,8 @@
-import React from 'react';
+import { FC, useCallback } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { Button } from '@pps-easy/ui/button';
+import { db } from '../../config/firebase';
+import { collection, addDoc } from 'firebase/firestore';
 
 interface ContactFormValues {
   name: string;
@@ -8,15 +10,22 @@ interface ContactFormValues {
   message: string;
 }
 
-export const ContactForm = () => {
-  const { control, handleSubmit, formState: { isSubmitting } } = useForm<ContactFormValues>();
+export const ContactForm: FC = () => {
+  const { control, handleSubmit, formState: { isSubmitting }, reset } = useForm<ContactFormValues>();
 
-  const onSubmit = (data: ContactFormValues) => {
+  const onSubmit = useCallback(async (data: ContactFormValues) => {
     console.log('Form Data:', data);
-  };
+    try {
+      await addDoc(collection(db, 'messages'), data);
+      alert('Votre message a été envoyé avec succès ! Nous vous répondrons dans les plus brefs délais.');
+      reset();
+    } catch (error) {
+      console.error('Error sending message:', error);
+    }
+  }, [reset]);
 
   return (
-    <div className="w-full max-w-2xl mx-auto min-h-[595px] flex flex-col justify-around p-6 bg-card rounded-lg shadow-md border border-primary overflow-auto">
+    <div className="w-full max-w-2xl mx-auto min-h-[595px] flex flex-col gap-2 p-6 bg-card rounded-lg shadow-md border border-border overflow-auto">
       <h2 className="text-3xl font-bold mb-4 text-primary">Contactez-nous</h2>
       <p className="mb-2 text-muted-foreground">
         Pour toute question, commentaire ou demande d'assistance, n'hésitez pas à nous contacter.
