@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "shadcn": "TS_NODE_PROJECT=tsconfig.base.json npx shadcn@latest"
+    "shadcn": "TS_NODE_PROJECT=tsconfig.base.json npx shadcn@latest",
+    "nx": "nx"
   },
   "private": true,
   "dependencies": {
