@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 
 import { mock } from 'jest-mock-extended';
 
-import { ChallengeResult, IRecaptchaChecker, IRecaptchaCheckerSymbol } from '@pps-easy/recaptcha/contracts';
+import { ChallengeResultData, IRecaptchaChecker, IRecaptchaCheckerSymbol } from '@pps-easy/recaptcha/contracts';
 
 import { RecaptchaGuard } from './recaptcha.guard';
 import { BadRequestException, ExecutionContext, ForbiddenException } from '@nestjs/common';
@@ -58,7 +58,7 @@ describe('The RecaptchaGuard', () => {
 
     describe('When context http request body contains a not valid recaptchaToken', () => {
       beforeEach(() => {
-        const challengeResult: ChallengeResult = {
+        const challengeResult: ChallengeResultData = {
           reasons: [],
           score: 0,
           isValid: false,
@@ -76,9 +76,9 @@ describe('The RecaptchaGuard', () => {
 
     describe('When context http request body contains a bad score check result', () => {
       beforeEach(() => {
-        const challengeResult: ChallengeResult = {
+        const challengeResult: ChallengeResultData = {
           reasons: [],
-          score: 0.5,
+          score: 0.4,
           isValid: true,
         }
         recaptchaCheckerMock.check.mockResolvedValue(challengeResult);
@@ -94,7 +94,7 @@ describe('The RecaptchaGuard', () => {
 
     describe('When context http request body contains a good score check result', () => {
       beforeEach(() => {
-        const challengeResult: ChallengeResult = {
+        const challengeResult: ChallengeResultData = {
           reasons: [],
           score: 0.6,
           isValid: true,

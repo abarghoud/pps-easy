@@ -22,6 +22,7 @@
       "@pps-easy/recaptcha/contracts": [
         "libs/recaptcha/contracts/src/index.ts"
       ],
+      "@pps-easy/recaptcha/domain": ["libs/recaptcha/domain/src/index.ts"],
       "@pps-easy/recaptcha/google": ["libs/recaptcha/google/src/index.ts"],
       "@pps-easy/shadcn/utils": ["libs/shadcn/utils/src/index.ts"],
       "@pps-easy/ui": ["libs/ui/src/components/*"],

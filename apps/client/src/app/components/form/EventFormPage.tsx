@@ -1,11 +1,10 @@
-import { FC, useCallback, useContext, useState } from 'react';
+import { FC, useCallback, useContext, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { eventFormSchema, FormValues } from '../../schema/event-form-schema';
 import { EventForm } from './EventForm';
 import { EventFormService } from '../../service/event-form-service';
-import { PPSCertificateService } from '../../api/pps-certificate-service';
-import { RecaptchaGeneratorContext } from '../../contexts/recaptcha-generator-context';
+import { PPSCertificateApiContext } from '../../contexts/pps-certificate-api-context';
 
 export const EventFormPage: FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -21,12 +20,10 @@ export const EventFormPage: FC = () => {
       gender: undefined,
     },
   });
-  const recaptchaGenerator = useContext(RecaptchaGeneratorContext);
+  const ppsGenerateAPI = useContext(PPSCertificateApiContext);
+  const eventFormService = useMemo(() => new EventFormService(ppsGenerateAPI), [ppsGenerateAPI]);
 
   const onSubmit = useCallback(async (values: FormValues) => {
-    const ppsGenerateAPI = new PPSCertificateService(recaptchaGenerator);
-    const eventFormService = new EventFormService(ppsGenerateAPI);
-
     setIsSubmitting(true);
 
     try {
@@ -45,7 +42,7 @@ export const EventFormPage: FC = () => {
     } finally {
       setIsSubmitting(false);
     }
-  }, [formValues, recaptchaGenerator]);
+  }, [eventFormService, formValues]);
 
 
   return (

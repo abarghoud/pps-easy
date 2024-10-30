@@ -1,24 +1,35 @@
 import { Routes, Route } from "react-router-dom";
+import axios from 'axios';
+
+import { useTheme } from "@pps-easy/ui/theme-provider";
+import { ClientRecaptchaChecker, GoogleRecaptchaGenerator } from '@pps-easy/recaptcha/google';
+
 import { MainLayout } from "./layout/MainLayout";
 import { AuthLayout } from "./layout/AuthLayout";
 import { LoginFormPage } from "./components/form/LoginFormPage";
 import { routesConfig } from "./routes/route";
 import { PrivateRoute } from "./routes/components/PrivateRoute";
-import { useTheme } from "@pps-easy/ui/theme-provider";
 import { GuestPage } from "./components/GuestPage";
 import { useAuth } from "./hooks/useAuth";
 import { AuthenticationContext } from './contexts/authentication-context';
 import { FirebaseAuthenticationService } from './service/firebase-authentication-service';
-import { RecaptchaGeneratorContext } from './contexts/recaptcha-generator-context';
-import { GoogleRecaptchaGenerator } from '@pps-easy/recaptcha/google';
+import { PPSCertificateApiContext } from './contexts/pps-certificate-api-context';
+import { PPSCertificateApiService } from './api/pps-certificate-api-service';
 
 export function App() {
   const { theme } = useTheme();
   const { loading } = useAuth();
+  const axiosInstance = axios.create({
+    baseURL: process.env.API_URL || 'http://localhost:3000',
+  });
+  const googleRecaptchaGenerator = new GoogleRecaptchaGenerator(process.env.REACT_APP_RECAPTCHA_SITE_KEY || '');
+  const clientRecaptchaChecker = new ClientRecaptchaChecker(axiosInstance);
+  const firebaseAuthenticationService = new FirebaseAuthenticationService(clientRecaptchaChecker, googleRecaptchaGenerator);
+  const ppsCertificateApiService = new PPSCertificateApiService(axiosInstance, googleRecaptchaGenerator)
 
   return (
-    <AuthenticationContext.Provider value={new FirebaseAuthenticationService()}>
-      <RecaptchaGeneratorContext.Provider value={new GoogleRecaptchaGenerator(process.env.REACT_APP_RECAPTCHA_SITE_KEY || '')}>
+    <AuthenticationContext.Provider value={firebaseAuthenticationService}>
+      <PPSCertificateApiContext.Provider value={ppsCertificateApiService}>
         <div className={`
           min-h-screen flex flex-col justify-center ${theme === "dark" ? "bg-background dark:bg-background" : "bg-white"} ${loading ? "items-center" : ""}
         `}>
@@ -38,7 +49,7 @@ export function App() {
             </Route>
           </Routes>
         </div>
-      </RecaptchaGeneratorContext.Provider>
+      </PPSCertificateApiContext.Provider>
     </AuthenticationContext.Provider>
   );
 }

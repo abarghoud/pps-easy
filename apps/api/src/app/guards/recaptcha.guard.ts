@@ -11,6 +11,7 @@ import { Request } from 'express';
 import { Observable } from 'rxjs';
 
 import { IRecaptchaChecker, IRecaptchaCheckerSymbol } from '@pps-easy/recaptcha/contracts';
+import { ChallengeResult } from '@pps-easy/recaptcha/domain';
 
 @Injectable()
 export class RecaptchaGuard implements CanActivate {
@@ -32,13 +33,16 @@ export class RecaptchaGuard implements CanActivate {
 
     return new Promise<boolean>((resolve, reject) => {
       this.recaptchaChecker.check(request.body.recaptchaToken).then((result) => {
-        if (!result.isValid || result.score <= 0.5) {
+        const challengeResult = new ChallengeResult(result);
+        const isValidChallenge = challengeResult.checkIsValid();
+
+        if (!isValidChallenge) {
           reject(new ForbiddenException());
 
           return;
         }
 
-        resolve(true);
+        resolve(isValidChallenge);
       });
     });
   }

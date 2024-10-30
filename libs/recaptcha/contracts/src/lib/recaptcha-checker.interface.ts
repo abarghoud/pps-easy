@@ -1,4 +1,4 @@
-export interface ChallengeResult {
+export interface ChallengeResultData {
   score: number;
   reasons: string[];
   isValid: boolean;
@@ -18,5 +18,5 @@ export enum RecaptchaInvalidityReason {
 export const IRecaptchaCheckerSymbol = Symbol.for('IRecaptchaChecker');
 
 export interface IRecaptchaChecker {
-  check(token: string): Promise<ChallengeResult>;
+  check(token: string): Promise<ChallengeResultData>;
 }

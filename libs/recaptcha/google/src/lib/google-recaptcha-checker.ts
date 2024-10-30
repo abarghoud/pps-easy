@@ -3,7 +3,7 @@ import { google } from '@google-cloud/recaptcha-enterprise/build/protos/protos';
 import ClassificationReason = google.cloud.recaptchaenterprise.v1.RiskAnalysis.ClassificationReason;
 
 import {
-  ChallengeResult,
+  ChallengeResultData,
   IRecaptchaChecker,
   RecaptchaInvalidityReason,
 } from '@pps-easy/recaptcha/contracts';
@@ -38,7 +38,7 @@ export class GoogleRecaptchaChecker implements IRecaptchaChecker {
     this.projectPath = this.recaptchaServiceClient.projectPath(projectId);
   }
 
-  public async check(token: string): Promise<ChallengeResult> {
+  public async check(token: string): Promise<ChallengeResultData> {
     const request = ({
       assessment: {
         event: {
