@@ -4,6 +4,8 @@ import { mock } from 'jest-mock-extended';
 import { GenerateController } from './generate.controller';
 import { PPSProfileDto } from './pps/domain/pps-profile-dto.model';
 import { IPPSGenerateUseCase, IPPSGenerateUseCaseSymbol } from './pps/usecase/pps-generate-usecase.interface';
+import { IRecaptchaCheckerSymbol } from '@pps-easy/recaptcha/contracts';
+import { LocalRecaptchaChecker } from '@pps-easy/recaptcha/google';
 
 describe('The GenerateController class', () => {
   let app: TestingModule;
@@ -12,7 +14,10 @@ describe('The GenerateController class', () => {
   beforeAll(async () => {
     app = await Test.createTestingModule({
       controllers: [GenerateController],
-      providers: [{ provide: IPPSGenerateUseCaseSymbol, useValue: ppsGeneratorUseCase }],
+      providers: [
+        { provide: IPPSGenerateUseCaseSymbol, useValue: ppsGeneratorUseCase },
+        { provide: IRecaptchaCheckerSymbol, useClass: LocalRecaptchaChecker },
+      ],
     }).compile();
   });
 
