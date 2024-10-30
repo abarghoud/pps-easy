@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import axios from 'axios';
 
 import { useTheme } from "@pps-easy/ui/theme-provider";
-import { ClientRecaptchaChecker, GoogleRecaptchaGenerator } from '@pps-easy/recaptcha/google';
+import { ClientRecaptchaChecker, GoogleRecaptchaGenerator, LocalRecaptchaChecker } from '@pps-easy/recaptcha/google';
 
 import { MainLayout } from "./layout/MainLayout";
 import { AuthLayout } from "./layout/AuthLayout";
@@ -15,6 +15,8 @@ import { AuthenticationContext } from './contexts/authentication-context';
 import { FirebaseAuthenticationService } from './service/firebase-authentication-service';
 import { PPSCertificateApiContext } from './contexts/pps-certificate-api-context';
 import { PPSCertificateApiService } from './api/pps-certificate-api-service';
+import { IRecaptchaChecker, IRecaptchaGenerator } from '@pps-easy/recaptcha/contracts';
+import { LocalRecaptchaGenerator } from './service/local-recaptcha-generator';
 
 export function App() {
   const { theme } = useTheme();
@@ -22,8 +24,13 @@ export function App() {
   const axiosInstance = axios.create({
     baseURL: process.env.API_URL || 'http://localhost:3000',
   });
-  const googleRecaptchaGenerator = new GoogleRecaptchaGenerator(process.env.REACT_APP_RECAPTCHA_SITE_KEY || '');
-  const clientRecaptchaChecker = new ClientRecaptchaChecker(axiosInstance);
+  const isLocalEnvironment = process.env.ENVIRONMENT === 'local';
+  const googleRecaptchaGenerator: IRecaptchaGenerator = isLocalEnvironment ?
+    new LocalRecaptchaGenerator() :
+    new GoogleRecaptchaGenerator(process.env.REACT_APP_RECAPTCHA_SITE_KEY || '');
+  const clientRecaptchaChecker: IRecaptchaChecker = isLocalEnvironment ?
+    new LocalRecaptchaChecker() :
+    new ClientRecaptchaChecker(axiosInstance);
   const firebaseAuthenticationService = new FirebaseAuthenticationService(clientRecaptchaChecker, googleRecaptchaGenerator);
   const ppsCertificateApiService = new PPSCertificateApiService(axiosInstance, googleRecaptchaGenerator)
 

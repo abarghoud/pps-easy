@@ -15,10 +15,12 @@ import { IPPSApiResponseAuthenticationMetaDataExtractorSymbol } from './pps/doma
 import { PPSApiResponseAuthenticationMetaDataExtractor } from './pps/domain/authentication-metadata-extractor/pps-api-response-authentication-metadata-extractor';
 import { KeepAliveController } from './keep-alive/keep-alive.controller';
 import { IRecaptchaCheckerSymbol } from '@pps-easy/recaptcha/contracts';
-import { GoogleRecaptchaChecker } from '@pps-easy/recaptcha/google';
+import { GoogleRecaptchaChecker, LocalRecaptchaChecker } from '@pps-easy/recaptcha/google';
 import * as process from 'node:process';
 import { RecaptchaController } from './recpatcha/recaptcha.controller';
 import { RecaptchaGuard } from './guards/recaptcha.guard';
+
+const isLocalEnvironment = process.env.ENVIRONMENT;
 
 @Module({
   imports: [
@@ -43,7 +45,9 @@ import { RecaptchaGuard } from './guards/recaptcha.guard';
     },
     {
       provide: IRecaptchaCheckerSymbol,
-      useValue: new GoogleRecaptchaChecker(process.env.RECAPTCHA_SITE_KEY || '', process.env.FIREBASE_PROJECT_ID || '')
+      useValue: isLocalEnvironment ?
+        new LocalRecaptchaChecker() :
+        new GoogleRecaptchaChecker(process.env.RECAPTCHA_SITE_KEY || '', process.env.FIREBASE_PROJECT_ID || '')
     },
     RecaptchaGuard
   ],
