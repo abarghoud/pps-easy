@@ -18,6 +18,7 @@ export default defineConfig({
     environment: 'node',
     include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
     reporters: ['default'],
+    setupFiles: ['./test-setup.ts'],
     coverage: {
       reportsDirectory: '../../../coverage/libs/recaptcha/google',
       provider: 'v8',
