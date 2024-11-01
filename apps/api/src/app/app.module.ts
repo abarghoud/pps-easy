@@ -20,7 +20,7 @@ import * as process from 'node:process';
 import { RecaptchaController } from './recpatcha/recaptcha.controller';
 import { RecaptchaGuard } from './guards/recaptcha.guard';
 
-const isLocalEnvironment = process.env.ENVIRONMENT;
+const isLocalEnvironment = process.env.ENVIRONMENT === 'local';
 
 @Module({
   imports: [
