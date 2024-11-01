@@ -14,15 +14,23 @@ import { PPSApi } from './pps/third-party/pps-api';
 import { IPPSApiResponseAuthenticationMetaDataExtractorSymbol } from './pps/domain/authentication-metadata-extractor/pps-api-response-authentication-metadata-extractor.interface';
 import { PPSApiResponseAuthenticationMetaDataExtractor } from './pps/domain/authentication-metadata-extractor/pps-api-response-authentication-metadata-extractor';
 import { KeepAliveController } from './keep-alive/keep-alive.controller';
+import { IRecaptchaCheckerSymbol } from '@pps-easy/recaptcha/contracts';
+import { GoogleRecaptchaChecker, LocalRecaptchaChecker } from '@pps-easy/recaptcha/google';
+import * as process from 'node:process';
+import { RecaptchaController } from './recpatcha/recaptcha.controller';
+import { RecaptchaGuard } from './guards/recaptcha.guard';
 
+const isLocalEnvironment = process.env.ENVIRONMENT;
 
 @Module({
-  imports: [HttpModule.register({
-    httpsAgent: new Agent({
-      rejectUnauthorized: false
+  imports: [
+    HttpModule.register({
+      httpsAgent: new Agent({
+        rejectUnauthorized: false
+      }),
     }),
-  }),],
-  controllers: [GenerateController, KeepAliveController],
+  ],
+  controllers: [GenerateController, KeepAliveController, RecaptchaController],
   providers: [
     { provide: IPPSGenerateUseCaseSymbol, useClass: PPSGeneratorUseCase },
     { provide: IPPSApiSymbol, useClass: PPSApi, scope: Scope.REQUEST },
@@ -34,7 +42,14 @@ import { KeepAliveController } from './keep-alive/keep-alive.controller';
     {
       provide: IHtmlParserSymbol,
       useClass: HtmlParser,
-    }
+    },
+    {
+      provide: IRecaptchaCheckerSymbol,
+      useValue: isLocalEnvironment ?
+        new LocalRecaptchaChecker() :
+        new GoogleRecaptchaChecker(process.env.RECAPTCHA_SITE_KEY || '', process.env.FIREBASE_PROJECT_ID || '')
+    },
+    RecaptchaGuard
   ],
 })
 export class AppModule implements OnModuleInit {

@@ -1,0 +1,9 @@
+{
+  "name": "google-recaptcha",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/recaptcha/google/src",
+  "projectType": "library",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project google-recaptcha --web",
+  "targets": {}
+}
