@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { IAuthenticationService } from '../service/authentication.interface';
-import { FirebaseAuthenticationService } from '../service/firebase-authentication-service';
 import { IUser } from '../interfaces/user.interface';
 
 class NullAuthenticationService implements IAuthenticationService {

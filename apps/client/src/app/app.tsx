@@ -17,6 +17,7 @@ import { PPSCertificateApiContext } from './contexts/pps-certificate-api-context
 import { PPSCertificateApiService } from './api/pps-certificate-api-service';
 import { IRecaptchaChecker, IRecaptchaGenerator } from '@pps-easy/recaptcha/contracts';
 import { LocalRecaptchaGenerator } from './service/local-recaptcha-generator';
+import { LocalAuthenticationService } from './service/local-authentication-service';
 
 export function App() {
   const { theme } = useTheme();
@@ -31,7 +32,9 @@ export function App() {
   const clientRecaptchaChecker: IRecaptchaChecker = isLocalEnvironment ?
     new LocalRecaptchaChecker() :
     new ClientRecaptchaChecker(axiosInstance);
-  const firebaseAuthenticationService = new FirebaseAuthenticationService(clientRecaptchaChecker, googleRecaptchaGenerator);
+  const firebaseAuthenticationService = isLocalEnvironment ?
+    new LocalAuthenticationService() :
+    new FirebaseAuthenticationService(clientRecaptchaChecker, googleRecaptchaGenerator);
   const ppsCertificateApiService = new PPSCertificateApiService(axiosInstance, googleRecaptchaGenerator)
 
   return (
