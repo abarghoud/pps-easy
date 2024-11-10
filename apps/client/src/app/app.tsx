@@ -18,6 +18,9 @@ import { PPSCertificateApiService } from './api/pps-certificate-api-service';
 import { IRecaptchaChecker, IRecaptchaGenerator } from '@pps-easy/recaptcha/contracts';
 import { LocalRecaptchaGenerator } from './service/local-recaptcha-generator';
 import { LocalAuthenticationService } from './service/local-authentication-service';
+import { ContactFormApiServiceContext } from './contexts/contact-form-api-context';
+import { LocalContactFormApiService } from './api/local-contact-form-api-service';
+import { FirebaseContactFormApiService } from './api/firebase-contact-form-api-service';
 
 export function App() {
   const { theme } = useTheme();
@@ -32,33 +35,38 @@ export function App() {
   const clientRecaptchaChecker: IRecaptchaChecker = isLocalEnvironment ?
     new LocalRecaptchaChecker() :
     new ClientRecaptchaChecker(axiosInstance);
-  const firebaseAuthenticationService = isLocalEnvironment ?
+  const authenticationService = isLocalEnvironment ?
     new LocalAuthenticationService() :
     new FirebaseAuthenticationService(clientRecaptchaChecker, googleRecaptchaGenerator);
+  const contactFormApiService = isLocalEnvironment ?
+    new LocalContactFormApiService() :
+    new FirebaseContactFormApiService();
   const ppsCertificateApiService = new PPSCertificateApiService(axiosInstance, googleRecaptchaGenerator)
 
   return (
-    <AuthenticationContext.Provider value={firebaseAuthenticationService}>
+    <AuthenticationContext.Provider value={authenticationService}>
       <PPSCertificateApiContext.Provider value={ppsCertificateApiService}>
-        <div className={`
-          min-h-screen flex flex-col justify-center ${theme === "dark" ? "bg-background dark:bg-background" : "bg-white"} ${loading ? "items-center" : ""}
-        `}>
-          <Routes>
-            <Route path="/login" element={<AuthLayout />}>
-              <Route path="" element={<LoginFormPage />} />
-            </Route>
-
-            <Route path="/generate-certificate" element={<GuestPage />} />
-
-            <Route element={<PrivateRoute />}>
-              <Route element={<MainLayout />}>
-                {routesConfig.map((route) => (
-                  <Route key={route.path} path={route.path} element={route.element} />
-                ))}
+        <ContactFormApiServiceContext.Provider value={contactFormApiService}>
+          <div className={`
+            min-h-screen flex flex-col justify-center ${theme === "dark" ? "bg-background dark:bg-background" : "bg-white"} ${loading ? "items-center" : ""}
+          `}>
+            <Routes>
+              <Route path="/login" element={<AuthLayout />}>
+                <Route path="" element={<LoginFormPage />} />
               </Route>
-            </Route>
-          </Routes>
-        </div>
+
+              <Route path="/generate-certificate" element={<GuestPage />} />
+
+              <Route element={<PrivateRoute />}>
+                <Route element={<MainLayout />}>
+                  {routesConfig.map((route) => (
+                    <Route key={route.path} path={route.path} element={route.element} />
+                  ))}
+                </Route>
+              </Route>
+            </Routes>
+          </div>
+        </ContactFormApiServiceContext.Provider>
       </PPSCertificateApiContext.Provider>
     </AuthenticationContext.Provider>
   );
