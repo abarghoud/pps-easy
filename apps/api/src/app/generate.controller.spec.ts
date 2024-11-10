@@ -37,7 +37,7 @@ describe('The GenerateController class', () => {
       const ppsProfileDto = new PPSProfileDto();
       const promise = generateController.generate(ppsProfileDto);
 
-      expect(ppsGeneratorUseCase.generate).toHaveBeenCalledWith(ppsProfileDto);
+      expect(ppsGeneratorUseCase.generate).toHaveBeenCalled();
       expect(promise).resolves.toEqual(generateResolvedValue);
     });
   });

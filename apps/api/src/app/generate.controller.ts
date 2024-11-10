@@ -12,10 +12,8 @@ export class GenerateController {
   @Post('/generate')
   @UseGuards(RecaptchaGuard)
   public generate(@Body() ppsProfileDto: PPSProfileDto): Promise<string> {
-    try {
-      return this.ppsGeneratorUseCase.generate(ppsProfileDto);
-    } catch (error) {
-      console.log(error);
-    }
+    console.log(ppsProfileDto);
+
+    return this.ppsGeneratorUseCase.generate();
   }
 }
