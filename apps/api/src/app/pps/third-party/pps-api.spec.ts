@@ -21,7 +21,7 @@ import { PPSId } from '../domain/pps-id.type';
 const getFakePPSDto = (): PPSProfileDto => {
   const ppsDto = new PPSProfileDto();
 
-  ppsDto.event_date = '2024-12-31';
+  ppsDto.event_date = new Date('2024-12-31');
 
   return ppsDto;
 };

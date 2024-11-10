@@ -6,7 +6,7 @@ import { Gender } from '../../gender.enum';
 const getFakePPSDto = (): PPSProfileDto => {
   const ppsDto = new PPSProfileDto();
 
-  ppsDto.event_date = '2024-12-31';
+  ppsDto.event_date = new Date('2024-12-31');
   ppsDto.birthday = '1990-01-01';
   ppsDto.email = 'test@test.com';
   ppsDto.gender = Gender.male;
