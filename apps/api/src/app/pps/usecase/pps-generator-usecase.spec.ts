@@ -3,7 +3,6 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { PPSGeneratorUseCase } from './pps-generator-usecase.service';
 import { IPPSApi, IPPSApiSymbol } from '../third-party/pps-api.interface';
 import { mock } from 'jest-mock-extended';
-import { PPSProfileDto } from '../domain/pps-profile-dto.model';
 import { PPSId } from '../domain/pps-id.type';
 
 describe('The PPSGeneratorUseCase class', () => {
@@ -24,27 +23,17 @@ describe('The PPSGeneratorUseCase class', () => {
   });
 
   describe('The generate method', () => {
-    const ppsProfileDto = new PPSProfileDto();
     const fakePPSId = 'SAZJ12S12';
     let result: PPSId;
 
     beforeAll(async () => {
-      ppsProfileDto.event_date = new Date('2024-11-01');
-      mockPpsApi.finalize.mockResolvedValue(fakePPSId);
+      mockPpsApi.run.mockResolvedValue(fakePPSId);
 
-      result = await app.get(PPSGeneratorUseCase).generate(ppsProfileDto);
+      result = await app.get(PPSGeneratorUseCase).generate();
     });
 
-    it("should call PPSApi init with runner's DTO", () => {
-      expect(mockPpsApi.init).toHaveBeenCalledWith(ppsProfileDto);
-    });
-
-    it("should call PPSApi createProfile with runner's DTO", () => {
-      expect(mockPpsApi.createProfile).toHaveBeenCalled();
-    });
-
-    it("should call PPSApi finalize method and return the resolved PPS ID", () => {
-      expect(mockPpsApi.finalize).toHaveBeenCalled();
+    it("should call PPSApi run method and return the resolved PPS ID", () => {
+      expect(mockPpsApi.run).toHaveBeenCalled();
       expect(result).toBe(fakePPSId);
     });
   });

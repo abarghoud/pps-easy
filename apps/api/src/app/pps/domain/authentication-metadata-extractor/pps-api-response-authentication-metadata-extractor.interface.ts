@@ -1,4 +1,4 @@
-import { AxiosResponse } from 'axios';
+import { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 export const IPPSApiResponseAuthenticationMetaDataExtractorSymbol = Symbol.for('IPPSApiResponseAuthenticationMetaDataExtractor');
 
@@ -8,5 +8,7 @@ export interface IAuthenticationMetadata {
 }
 
 export interface IPPSApiResponseAuthenticationMetaDataExtractor {
-  extract(axiosResponse: AxiosResponse): IAuthenticationMetadata;
+  track(axiosResponse: AxiosResponse): void;
+  generateAxiosHeaderWithSessionData(): AxiosRequestConfig;
+  getAuthenticityToken(): string;
 }
