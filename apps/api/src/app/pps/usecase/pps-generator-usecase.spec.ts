@@ -29,7 +29,7 @@ describe('The PPSGeneratorUseCase class', () => {
     let result: PPSId;
 
     beforeAll(async () => {
-      ppsProfileDto.event_date = '2024-11-01';
+      ppsProfileDto.event_date = new Date('2024-11-01');
       mockPpsApi.finalize.mockResolvedValue(fakePPSId);
 
       result = await app.get(PPSGeneratorUseCase).generate(ppsProfileDto);
