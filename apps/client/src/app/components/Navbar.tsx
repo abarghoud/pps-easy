@@ -1,7 +1,5 @@
 import React, { FC, useCallback, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { FirebaseAuthenticationService } from '../service/firebase-authentication-service';
-import { auth } from "../config/firebase";
 import { LogOut, FileUser, Menu } from "lucide-react";
 import { Button } from "@pps-easy/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@pps-easy/ui/sheet";

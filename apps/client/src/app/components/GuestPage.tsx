@@ -10,7 +10,7 @@ export const GuestPage: FC = () => {
   }, [navigate]);
 
   return (
-    <div className="flex flex-col justify-center p-6">
+    <div className="flex-grow container mx-auto px-4 py-8 flex flex-col justify-center items-center">
       <EventFormPage />
       <button
         onClick={redirectToMainPage}

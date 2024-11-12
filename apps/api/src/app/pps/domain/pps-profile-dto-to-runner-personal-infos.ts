@@ -21,6 +21,6 @@ export class PPSProfileDTOToRunnerPersonalInfos {
     this.firstname = ppsDto.firstname;
     this.gender = ppsDto.gender;
     this.lastname = ppsDto.lastname;
-    this.eventDate = DateTime.fromISO(ppsDto.event_date);
+    this.eventDate = DateTime.fromJSDate(ppsDto.event_date);
   }
 }

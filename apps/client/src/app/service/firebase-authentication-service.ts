@@ -15,7 +15,7 @@ import { IRecaptchaChecker, IRecaptchaGenerator } from '@pps-easy/recaptcha/cont
 import { ChallengeResult } from '@pps-easy/recaptcha/domain';
 
 import { IAuthenticationService } from './authentication.interface';
-import { auth } from '../config/firebase';
+import { initAuth } from '../config/firebase';
 import { IUser } from '../interfaces/user.interface';
 
 export class FirebaseAuthenticationService implements IAuthenticationService {
@@ -25,7 +25,7 @@ export class FirebaseAuthenticationService implements IAuthenticationService {
     private readonly recaptchaChecker: IRecaptchaChecker,
     private readonly recaptchaGenerator: IRecaptchaGenerator
   ) {
-    this.auth = auth;
+    this.auth = initAuth();
   }
 
   public onAuthStateChanged(callback: (user: User | null) => void): () => void {

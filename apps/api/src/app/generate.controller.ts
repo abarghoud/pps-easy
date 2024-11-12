@@ -11,9 +11,8 @@ export class GenerateController {
 
   @Post('/generate')
   @UseGuards(RecaptchaGuard)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public generate(@Body() ppsProfileDto: PPSProfileDto): Promise<string> {
-    console.log(ppsProfileDto);
-
     return this.ppsGeneratorUseCase.generate();
   }
 }
