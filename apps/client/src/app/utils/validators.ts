@@ -30,6 +30,7 @@ export const formatToISODate = (dateString: string): string => {
 };
 
 export const formatDate = (value: string): string => {
+  debugger;
   const cleaned = value.replace(/\D/g, "");
 
   if (cleaned.length === 0) return "";

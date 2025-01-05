@@ -21,6 +21,8 @@ import { LocalAuthenticationService } from './service/local-authentication-servi
 import { ContactFormApiServiceContext } from './contexts/contact-form-api-context';
 import { LocalContactFormApiService } from './api/local-contact-form-api-service';
 import { FirebaseContactFormApiService } from './api/firebase-contact-form-api-service';
+import { FirebaseUserEntityDocumentUpdater } from './service/user-entity-updater';
+import { useEffect } from 'react';
 
 export function App() {
   const { theme } = useTheme();
@@ -42,6 +44,11 @@ export function App() {
     new LocalContactFormApiService() :
     new FirebaseContactFormApiService();
   const ppsCertificateApiService = new PPSCertificateApiService(axiosInstance, googleRecaptchaGenerator)
+  const userUpdater = new FirebaseUserEntityDocumentUpdater(authenticationService);
+
+  useEffect(() => {
+    userUpdater.init();
+  }, [userUpdater]);
 
   return (
     <AuthenticationContext.Provider value={authenticationService}>
