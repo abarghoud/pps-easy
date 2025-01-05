@@ -22,6 +22,8 @@ import {
 } from './domain/authentication-metadata-extractor/pps-api-response-authentication-metadata-extractor';
 import { SharedModule } from '../shared/shared.module';
 import { PPSProfileDTOToRunnerPersonalInfos } from './domain/pps-profile-dto-to-runner-personal-infos';
+import { plainToInstance } from 'class-transformer';
+import { PPSProfileDto } from './domain/pps-profile-dto.model';
 
 @Module({
   exports: [IPPSGenerateUseCaseSymbol],
@@ -36,7 +38,7 @@ import { PPSProfileDTOToRunnerPersonalInfos } from './domain/pps-profile-dto-to-
     {
       provide: PPSApiFormDataGenerator,
       useFactory: (request: Request) =>
-        new PPSApiFormDataGenerator(new PPSProfileDTOToRunnerPersonalInfos(request.body)),
+        new PPSApiFormDataGenerator(new PPSProfileDTOToRunnerPersonalInfos(plainToInstance(PPSProfileDto, request.body))),
       inject: [REQUEST],
       scope: Scope.REQUEST,
     },
