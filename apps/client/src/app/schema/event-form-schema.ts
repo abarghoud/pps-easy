@@ -1,17 +1,16 @@
 import * as z from 'zod';
-import { isValidEventDate, isValidEmail } from '../utils/validators';
+import { isValidEmail } from '../utils/validators';
+import { addMonths, isAfter, isBefore, startOfDay } from 'date-fns';
 
 export const eventFormSchema = z.object({
-  birthday: z.string().refine(
-    (value) => isValidEventDate(value) &&
-      new Date(value.split("/").reverse().join("-")) <= new Date() &&
-      new Date(value.split("/").reverse().join("-")) >= new Date("1900-01-01"),
-    { message: "Veuillez entrer une date de naissance valide au format JJ/MM/AAAA." }
-  ),
-  eventDate: z.string().refine(
-    (value) => isValidEventDate(value) && new Date(value.split("/").reverse().join("-")) >= new Date(),
-    { message: "Veuillez entrer une date d'événement valide au format JJ/MM/AAAA jusqu'à 3 mois à venir." }
-  ),
+  birthday: z.string().min(1, 'La date de naissance est requise'),
+  eventDate: z.string().min(1, "La date de la course est requise").refine((date) => {
+    const selectedDate = startOfDay(new Date(date));
+    const today = startOfDay(new Date());
+    const threeMonthsFromNow = startOfDay(addMonths(today, 3));
+
+    return !isAfter(selectedDate, threeMonthsFromNow) && !isBefore(selectedDate, today);
+  }, 'La date de la course doit être dans les 3 mois à venir'),
   email: z.string().refine(isValidEmail, {
     message: "Veuillez entrer une adresse email valide.",
   }),

@@ -1,7 +1,6 @@
 import { IEventFormService } from './event-form-service.requirements';
 import { IPPSCertificateApiService } from '../api/pps-certificate-service.requirements';
 import { FormValues } from '../schema/event-form-schema';
-import { formatToISODate } from '../utils/validators';
 
 export class EventFormService implements IEventFormService {
   private api: IPPSCertificateApiService;
@@ -45,9 +44,9 @@ export class EventFormService implements IEventFormService {
 
   private transformFormValuesToRequestPayload(values: FormValues) {
     return {
-      birthday: formatToISODate(values.birthday),
+      birthday: values.birthday,
       email: values.email,
-      event_date: formatToISODate(values.eventDate),
+      event_date: values.eventDate,
       firstname: values.firstname,
       gender: values.gender === 'homme' ? 'male' : 'female',
       lastname: values.lastname,

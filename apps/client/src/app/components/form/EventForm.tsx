@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@pps-easy/ui/card';
 import { Button } from '@pps-easy/ui/button';
 import { EventFormInputField, EventFormSelectField } from './EventFormFields';
 import { FormValues } from '../../schema/event-form-schema';
+import { addMonths, format } from 'date-fns';
 
 interface EventFormProps {
   formMethods: UseFormReturn<FormValues>;
@@ -16,6 +17,10 @@ export const EventForm: FC<EventFormProps> = ({
   isSubmitting,
   onSubmit
 }) => {
+  const today = new Date();
+  const minRaceDate = format(today, 'yyyy-MM-dd');
+  const maxRaceDate = format(addMonths(today, 3), 'yyyy-MM-dd');
+
   return (
     <FormProvider {...formMethods}>
       <Card className="w-full max-w-4xl mx-auto min-h-[595px] flex flex-col p-6 bg-card rounded-lg shadow-2xl border-2 border-border overflow-auto">
@@ -27,15 +32,17 @@ export const EventForm: FC<EventFormProps> = ({
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <EventFormInputField
                 control={formMethods.control}
-                isDateField
+                type='date'
                 label="Date de naissance"
                 name="birthday"
                 placeholder="JJ/MM/AAAA"
               />
               <EventFormInputField
                 control={formMethods.control}
-                isDateField
-                label="Date de l'événement"
+                type='date'
+                label="Date de la course"
+                max={maxRaceDate}
+                min={minRaceDate}
                 name="eventDate"
                 placeholder="JJ/MM/AAAA"
               />
