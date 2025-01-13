@@ -21,6 +21,15 @@ import { LocalAuthenticationService } from './service/local-authentication-servi
 import { ContactFormApiServiceContext } from './contexts/contact-form-api-context';
 import { LocalContactFormApiService } from './api/local-contact-form-api-service';
 import { FirebaseContactFormApiService } from './api/firebase-contact-form-api-service';
+import { AuthenticationUserPersistenceHandler } from './service/authentication-user-persistence/authentication-user-persistence-handler';
+import { useEffect } from 'react';
+import { FirebaseAuthenticationUserPersistenceRepository } from './service/authentication-user-persistence/firebase-authentication-user-persistence-repository';
+import {
+  LocalstorageAuthenticationUserPersistenceStateTracker
+} from './service/authentication-user-persistence/localstorage-authentication-user-persistence-state-tracker';
+import {
+  DoNothingUserPersistenceHandler
+} from './service/authentication-user-persistence/do-nothing-user-persistence-handler';
 
 export function App() {
   const { theme } = useTheme();
@@ -42,6 +51,15 @@ export function App() {
     new LocalContactFormApiService() :
     new FirebaseContactFormApiService();
   const ppsCertificateApiService = new PPSCertificateApiService(axiosInstance, googleRecaptchaGenerator)
+  const userUpdater = isLocalEnvironment ? new DoNothingUserPersistenceHandler() : new AuthenticationUserPersistenceHandler(
+    authenticationService,
+    new FirebaseAuthenticationUserPersistenceRepository(),
+    new LocalstorageAuthenticationUserPersistenceStateTracker()
+  );
+
+  useEffect(() => {
+    userUpdater.init();
+  }, [userUpdater]);
 
   return (
     <AuthenticationContext.Provider value={authenticationService}>
