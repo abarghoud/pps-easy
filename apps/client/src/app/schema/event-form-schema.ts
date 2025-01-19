@@ -17,6 +17,7 @@ export const eventFormSchema = z.object({
   firstname: z.string().min(2, { message: "Le prénom doit contenir au moins 2 caractères." }),
   lastname: z.string().min(2, { message: "Le nom doit contenir au moins 2 caractères." }),
   gender: z.enum(["homme", "femme"], { required_error: "Veuillez sélectionner un genre." }),
+  saveForLaterUse: z.boolean().default(false),
 }).refine((schema) => {
   const selectedDate = startOfDay(new Date(schema.birthday));
   const eventDate = startOfDay(new Date(schema.eventDate));

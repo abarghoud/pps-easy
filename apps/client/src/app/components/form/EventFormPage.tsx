@@ -18,12 +18,14 @@ export const EventFormPage: FC = () => {
       firstname: '',
       lastname: '',
       gender: undefined,
+      saveForLaterUse: false,
     },
   });
   const ppsGenerateAPI = useContext(PPSCertificateApiContext);
   const eventFormService = useMemo(() => new EventFormService(ppsGenerateAPI), [ppsGenerateAPI]);
 
   const onSubmit = useCallback(async (values: FormValues) => {
+    debugger;
     setIsSubmitting(true);
 
     try {
@@ -36,6 +38,7 @@ export const EventFormPage: FC = () => {
         firstname: '',
         lastname: '',
         gender: undefined,
+        saveForLaterUse: false,
       });
     } catch (error) {
       eventFormService.handleError(error);
