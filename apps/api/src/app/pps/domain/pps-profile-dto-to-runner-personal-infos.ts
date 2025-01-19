@@ -13,7 +13,7 @@ export class PPSProfileDTOToRunnerPersonalInfos {
   public readonly eventDate: DateTime;
 
   public constructor(ppsDto: PPSProfileDto) {
-    const luxonBirthday = DateTime.fromISO(ppsDto.birthday);
+    const luxonBirthday = DateTime.fromJSDate(ppsDto.birthday);
     this.birthdayDay = luxonBirthday.day;
     this.birthdayMonth = luxonBirthday.month;
     this.birthdayYear = luxonBirthday.year;
