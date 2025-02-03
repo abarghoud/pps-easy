@@ -1,6 +1,7 @@
 import * as z from 'zod';
 import { isValidEmail } from '../utils/validators';
 import { addMonths, isAfter, isBefore, startOfDay, subYears } from 'date-fns';
+import { Gender } from '@pps-easy/user/domain';
 
 export const eventFormSchema = z.object({
   birthday: z.string().min(1, 'La date de naissance est requise'),
@@ -16,7 +17,7 @@ export const eventFormSchema = z.object({
   }),
   firstname: z.string().min(2, { message: "Le prénom doit contenir au moins 2 caractères." }),
   lastname: z.string().min(2, { message: "Le nom doit contenir au moins 2 caractères." }),
-  gender: z.enum(["homme", "femme"], { required_error: "Veuillez sélectionner un genre." }),
+  gender: z.enum([Gender.male, Gender.female], { required_error: "Veuillez sélectionner un genre." }),
   saveForLaterUse: z.boolean().default(false),
 }).refine((schema) => {
   const selectedDate = startOfDay(new Date(schema.birthday));
@@ -26,4 +27,4 @@ export const eventFormSchema = z.object({
   return !isAfter(selectedDate, eighteenYearsBefore);
 }, { message: 'Vous devez avoir 18 ans le jour de la course', path: ['birthday'] });
 
-export type FormValues = z.infer<typeof eventFormSchema>;
+export type EventFormValues = z.infer<typeof eventFormSchema>;

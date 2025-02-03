@@ -1,7 +1,9 @@
+import { Gender } from '@pps-easy/user/domain';
+
 import { getDefaultPPSFormData, PPSApiFormDataGenerator } from './pps-api-form-data-generator';
 import { PPSProfileDTOToRunnerPersonalInfos } from '../domain/pps-profile-dto-to-runner-personal-infos';
 import { PPSProfileDto } from '../domain/pps-profile-dto.model';
-import { Gender } from '../../gender.enum';
+
 
 const getFakePPSDto = (): PPSProfileDto => {
   const ppsDto = new PPSProfileDto();

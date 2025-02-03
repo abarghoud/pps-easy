@@ -1,11 +1,10 @@
 import { useState, useEffect, useCallback, useContext } from 'react';
 
 import { AuthenticationContext } from '../contexts/authentication-context';
-import { IAuthenticationService } from '../service/authentication.interface';
-import { IUser } from '../interfaces/user.interface';
+import { IAuthenticationService, IAuthenticationUser } from '@pps-easy/user/contracts';
 
 export const useAuth = () => {
-  const [user, setUser] = useState<IUser | null>(null);
+  const [user, setUser] = useState<IAuthenticationUser | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const authService = useContext<IAuthenticationService>(AuthenticationContext);
 

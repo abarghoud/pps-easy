@@ -1,28 +1,58 @@
+import { UserPersonalInfoEntity } from '@pps-easy/user/domain';
+import { IUserPersonalInfoRepository } from '@pps-easy/user/contracts';
+
 import { IEventFormService } from './event-form-service.requirements';
 import { IPPSCertificateApiService } from '../api/pps-certificate-service.requirements';
-import { FormValues } from '../schema/event-form-schema';
+import { EventFormValues } from '../schema/event-form-schema';
 
 export class EventFormService implements IEventFormService {
-  private api: IPPSCertificateApiService;
+  constructor(
+    private readonly ppsCertificateApi: IPPSCertificateApiService,
+    private readonly userPersonalInfoRepository: IUserPersonalInfoRepository
+  ) {}
 
-  constructor(api: IPPSCertificateApiService) {
-    this.api = api;
-  }
-
-  public async submitForm(values: FormValues): Promise<string> {
+  public async submitForm(values: EventFormValues): Promise<string> {
     const payload = this.transformFormValuesToRequestPayload(values);
 
     try {
-      const response = await this.api.generate({
-        ...payload,
-        gender: payload.gender as 'male' | 'female',
-      });
+      const response = await this.ppsCertificateApi.generate(payload);
+
+      if (values.saveForLaterUse) {
+        await this.userPersonalInfoRepository.persist(
+          new UserPersonalInfoEntity(
+            payload.firstname,
+            payload.lastname,
+            payload.email,
+            payload.birthday,
+            payload.gender
+          )
+        );
+      }
 
       return response;
-
     } catch (error) {
-      throw new Error('Unsuccessful form submission: ' + (error instanceof Error ? error.message : 'Unknown error'));
+      throw new Error(
+        'Unsuccessful form submission: ' +
+          (error instanceof Error ? error.message : 'Unknown error')
+      );
     }
+  }
+
+  public async getSavedPersonalInfo(): Promise<UserPersonalInfoEntity | Partial<UserPersonalInfoEntity>> {
+    const savedPersonalInfo =
+      await this.userPersonalInfoRepository.getPersonalInfo();
+
+    if (!savedPersonalInfo) {
+      return {
+        firstname: undefined,
+        lastname: undefined,
+        email: undefined,
+        birthday: undefined,
+        gender: undefined,
+      };
+    }
+
+    return savedPersonalInfo;
   }
 
   public handleSuccess(response: string) {
@@ -42,13 +72,13 @@ export class EventFormService implements IEventFormService {
     }
   }
 
-  private transformFormValuesToRequestPayload(values: FormValues) {
+  private transformFormValuesToRequestPayload(values: EventFormValues) {
     return {
       birthday: values.birthday,
       email: values.email,
       event_date: values.eventDate,
       firstname: values.firstname,
-      gender: values.gender === 'homme' ? 'male' : 'female',
+      gender: values.gender,
       lastname: values.lastname,
     };
   }

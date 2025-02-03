@@ -1,11 +1,10 @@
-import { IAuthenticationService } from './authentication.interface';
-import { IUser } from '../interfaces/user.interface';
+import { IAuthenticationService, IAuthenticationUser } from '@pps-easy/user/contracts';
 
 export class LocalAuthenticationService implements IAuthenticationService {
-  private authenticatedUser: IUser | null = null;
-  private authStateChangedCallback: ((user: IUser | null) => void) | undefined;
+  public authenticatedUser: IAuthenticationUser | null = null;
+  private authStateChangedCallback: ((user: IAuthenticationUser | null) => void) | undefined;
 
-  public onAuthStateChanged(callback: (user: IUser | null) => void): () => void {
+  public onAuthStateChanged(callback: (user: IAuthenticationUser | null) => void): () => void {
     this.authStateChangedCallback = callback;
 
     callback(this.authenticatedUser);
@@ -15,8 +14,9 @@ export class LocalAuthenticationService implements IAuthenticationService {
     }
   }
 
-  public async login(email: string, password: string): Promise<IUser> {
+  public async login(email: string, password: string): Promise<IAuthenticationUser> {
     this.authenticatedUser = {
+      uid: '',
       email,
       displayName: null,
     }
@@ -26,8 +26,9 @@ export class LocalAuthenticationService implements IAuthenticationService {
     return this.authenticatedUser;
   }
 
-  public async register(email: string, password: string): Promise<IUser> {
+  public async register(email: string, password: string): Promise<IAuthenticationUser> {
     this.authenticatedUser = {
+      uid: '',
       email,
       displayName: null,
     }
@@ -37,8 +38,9 @@ export class LocalAuthenticationService implements IAuthenticationService {
     return this.authenticatedUser;
   }
 
-  public async loginWithGoogle(): Promise<IUser> {
+  public async loginWithGoogle(): Promise<IAuthenticationUser> {
     this.authenticatedUser = {
+      uid: '',
       email: 'test@google.com',
       displayName: null,
     }

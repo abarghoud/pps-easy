@@ -1,8 +1,8 @@
 import { IsDate, IsEmail, IsEnum, IsString, MaxDate, MinDate } from 'class-validator';
 import { Type } from 'class-transformer';
-
-import { Gender } from '../../gender.enum';
 import { DateTime } from 'luxon';
+
+import { Gender } from '@pps-easy/user/domain';
 
 export class PPSProfileDto {
   @Type(() => Date)

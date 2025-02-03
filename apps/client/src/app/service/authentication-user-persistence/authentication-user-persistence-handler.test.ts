@@ -3,13 +3,12 @@ import { mock } from 'vitest-mock-extended';
 
 import { AuthenticationUserPersistenceHandler } from './authentication-user-persistence-handler';
 import { IAuthenticationUserPersistenceProvider } from './authentication-user-persistence-provider.interface';
-import { IAuthenticationService } from '../authentication.interface';
+import { IAuthenticationService, IAuthenticationUser } from '@pps-easy/user/contracts';
 import { IAuthenticationUserPersistenceStateTracker } from './authentication-user-persistence-state-tracker.interface';
-import { IUser } from '../../interfaces/user.interface';
 
 describe('The AuthenticationUserPersistenceHandler class', () => {
   let instance: AuthenticationUserPersistenceHandler;
-  let onAuthStateChangedCallback: (user: IUser | null) => void;
+  let onAuthStateChangedCallback: (user: IAuthenticationUser | null) => void;
   const mockAuthenticationService = mock<IAuthenticationService>();
   const mockAuthenticationUserPersistenceProvider = mock<IAuthenticationUserPersistenceProvider>();
   const mockAuthenticationUserPersistenceStateTracker = mock<IAuthenticationUserPersistenceStateTracker>();
@@ -31,7 +30,7 @@ describe('The AuthenticationUserPersistenceHandler class', () => {
   describe('When auth state changes', () => {
     describe('When a not null user object is received (meaning it is a login or signup)', () => {
       describe('When persistance state tracker indicates it should update', () => {
-        const authenticatedUser: IUser = {
+        const authenticatedUser: IAuthenticationUser = {
           uid: 'a-u-id',
           displayName: 'john doe',
           email: 'john@doe.com',

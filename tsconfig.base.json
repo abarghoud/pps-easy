@@ -28,7 +28,10 @@
       "@pps-easy/ui": ["libs/ui/src/components/*"],
       "@pps-easy/ui/*": ["libs/ui/src/components/*"],
       "@pps-easy/ui/styles": ["libs/ui/src/styles/*"],
-      "@pps-easy/ui/styles/*": ["libs/ui/src/styles/*"]
+      "@pps-easy/ui/styles/*": ["libs/ui/src/styles/*"],
+      "@pps-easy/user/contracts": ["libs/user/contracts/src/index.ts"],
+      "@pps-easy/user/data-access": ["libs/user/data-access/src/index.ts"],
+      "@pps-easy/user/domain": ["libs/user/domain/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
