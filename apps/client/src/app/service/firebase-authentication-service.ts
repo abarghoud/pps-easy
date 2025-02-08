@@ -14,11 +14,16 @@ import {
 import { IRecaptchaChecker, IRecaptchaGenerator } from '@pps-easy/recaptcha/contracts';
 import { ChallengeResult } from '@pps-easy/recaptcha/domain';
 
-import { IAuthenticationService } from './authentication.interface';
 import { initAuth } from '../config/firebase';
-import { IUser } from '../interfaces/user.interface';
+import { IAuthenticationUser, IAuthenticationService } from '@pps-easy/user/contracts';
 
 export class FirebaseAuthenticationService implements IAuthenticationService {
+  public get authenticatedUser(): IAuthenticationUser | null {
+    return this._authenticatedUser;
+  };
+
+  private _authenticatedUser: IAuthenticationUser | null = null;
+
   private readonly auth: Auth;
 
   public constructor(
@@ -29,24 +34,32 @@ export class FirebaseAuthenticationService implements IAuthenticationService {
   }
 
   public onAuthStateChanged(callback: (user: User | null) => void): () => void {
-    return onAuthStateChanged(this.auth, callback);
+    return onAuthStateChanged(this.auth, (user: User | null) => {
+      this._authenticatedUser = user;
+
+      callback(user);
+    });
   }
 
-  public async login(email: string, password: string): Promise<IUser> {
+  public async login(email: string, password: string): Promise<IAuthenticationUser> {
     await this.verify();
 
     return (await signInWithEmailAndPassword(this.auth, email, password)).user;
   }
 
-  public async register(email: string, password: string): Promise<IUser> {
+  public async register(email: string, password: string): Promise<IAuthenticationUser> {
     await this.verify();
 
-    const userCredential = await createUserWithEmailAndPassword(this.auth, email, password);
+    const userCredential = await createUserWithEmailAndPassword(
+      this.auth,
+      email,
+      password
+    );
     await sendEmailVerification(userCredential.user);
     return userCredential.user;
   }
 
-  public async loginWithGoogle(): Promise<IUser> {
+  public async loginWithGoogle(): Promise<IAuthenticationUser> {
     await this.verify();
 
     const provider = new GoogleAuthProvider();

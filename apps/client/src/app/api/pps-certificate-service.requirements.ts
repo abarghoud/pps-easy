@@ -1,9 +1,11 @@
+import { Gender } from '@pps-easy/user/domain';
+
 export interface GeneratePPSPayload {
   birthday: string;
   email: string;
   event_date: string;
   firstname: string;
-  gender: 'male' | 'female';
+  gender: Gender;
   lastname: string;
 }
 

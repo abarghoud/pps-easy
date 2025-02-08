@@ -1,7 +1,10 @@
-import { FormValues } from '../schema/event-form-schema';
+import { UserPersonalInfoEntity } from '@pps-easy/user/domain';
+
+import { EventFormValues } from '../schema/event-form-schema';
 
 export interface IEventFormService {
-  submitForm(values: FormValues): Promise<string>;
+  getSavedPersonalInfo(): Promise<UserPersonalInfoEntity | Partial<UserPersonalInfoEntity>>
+  submitForm(values: EventFormValues): Promise<string>;
   handleSuccess(response: string): void;
   handleError(error: unknown): void;
 }

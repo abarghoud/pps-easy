@@ -1,6 +1,8 @@
-import { PPSProfileDto } from './pps-profile-dto.model';
-import { Gender } from '../../gender.enum';
 import { DateTime } from 'luxon';
+
+import { Gender } from '@pps-easy/user/domain';
+
+import { PPSProfileDto } from './pps-profile-dto.model';
 
 export class PPSProfileDTOToRunnerPersonalInfos {
   public readonly birthdayDay: number;

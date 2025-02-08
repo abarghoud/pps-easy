@@ -1,4 +1,5 @@
-import { IUser } from '../../interfaces/user.interface';
+import { IAuthenticationUser } from '@pps-easy/user/contracts';
+
 import { IAuthenticationUserPersistenceProvider } from './authentication-user-persistence-provider.interface';
 import { initDb } from '../../config/firebase';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
@@ -13,7 +14,7 @@ export class FirebaseAuthenticationUserPersistenceRepository
   }
 
 
-  public async persist(user: IUser): Promise<void> {
+  public async persist(user: IAuthenticationUser): Promise<void> {
     const userDocReference = doc(this.db, 'users', user.uid);
     const docSnap = await getDoc(userDocReference);
 

@@ -1,21 +1,22 @@
 import React from 'react';
 
-import { IAuthenticationService } from '../service/authentication.interface';
-import { IUser } from '../interfaces/user.interface';
+import { IAuthenticationService, IAuthenticationUser } from '@pps-easy/user/contracts';
 
 class NullAuthenticationService implements IAuthenticationService {
-  onAuthStateChanged(callback: (user: IUser | null) => void): () => void {
+  public readonly authenticatedUser: IAuthenticationUser | null = null;
+
+  onAuthStateChanged(callback: (user: IAuthenticationUser | null) => void): () => void {
     return () => {
       // empty
     };
   }
-  login(email: string, password: string): Promise<IUser> {
+  login(email: string, password: string): Promise<IAuthenticationUser> {
     throw new Error('Method not implemented.');
   }
-  register(email: string, password: string): Promise<IUser> {
+  register(email: string, password: string): Promise<IAuthenticationUser> {
     throw new Error('Method not implemented.');
   }
-  loginWithGoogle(): Promise<IUser> {
+  loginWithGoogle(): Promise<IAuthenticationUser> {
     throw new Error('Method not implemented.');
   }
   logout(): Promise<void> {

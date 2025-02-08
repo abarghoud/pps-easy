@@ -1,5 +1,5 @@
-import { IUser } from '../../interfaces/user.interface';
+import { IAuthenticationUser } from '@pps-easy/user/contracts';
 
 export interface IAuthenticationUserPersistenceProvider {
-  persist(user: IUser): Promise<void>;
+  persist(user: IAuthenticationUser): Promise<void>;
 }
